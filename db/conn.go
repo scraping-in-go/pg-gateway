@@ -8,9 +8,9 @@ import (
 )
 
 var DatabaseHost = os.Getenv("pghost")
-var DatabaseUser = "postgres"
+var DatabaseUser = os.Getenv("pguser")
 var DatabasePassword = os.Getenv("pgpassword")
-var DatabaseDatabase = "scrapedb"
+var DatabaseDatabase = os.Getenv("pgdb")
 var DatabasePort = os.Getenv("pgport")
 var dp, _ = strconv.Atoi(DatabasePort)
 
