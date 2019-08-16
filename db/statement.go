@@ -2,7 +2,7 @@ package db
 
 import (
 	"fmt"
-	"github.com/scraping-in-go/svc-db-gateway/model"
+	"github.com/just1689/pg-gateway/model"
 	"github.com/sirupsen/logrus"
 	"strconv"
 )
