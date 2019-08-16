@@ -16,9 +16,39 @@ func main() {
 	logrus.Println("Listening on", os.Getenv("listenAddr"))
 	router := mux.NewRouter()
 
+	router.HandleFunc("/{entity}", handleGetAll).Methods("GET")
 	router.HandleFunc("/{entity}/{id}", handleGet).Methods("GET")
 	router.HandleFunc("/{entity}", handleInsert).Methods("POST")
 	panic(http.ListenAndServe(os.Getenv("listenAddr"), router))
+}
+
+func handleGetAll(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	entity := vars["entity"]
+	if entity == "" {
+		http.Error(w, "You need to supply an entity: /{entity}", http.StatusBadRequest)
+		return
+	}
+
+	c, err := db.GetEntityAll(entity)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Header().Add("Content-type", "Application/json")
+	rows := 0
+	w.Write([]byte("["))
+	for row := range c {
+		rows++
+		if rows > 1 {
+			w.Write([]byte(","))
+		}
+		w.Write([]byte(row))
+
+	}
+	w.Write([]byte("]"))
+
 }
 
 func handleGet(w http.ResponseWriter, r *http.Request) {
@@ -41,7 +71,7 @@ func handleGet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Header().Add("Context-type", "Application/json")
+	w.Header().Add("Content-type", "Application/json")
 	w.Write([]byte(jsonS))
 
 }
