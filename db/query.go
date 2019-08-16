@@ -2,12 +2,17 @@ package db
 
 import (
 	"fmt"
+	"github.com/jackc/pgx"
 	"github.com/sirupsen/logrus"
 )
 
+var NextPoolCon = func() *pgx.Conn {
+	return nil
+}
+
 func GetEntityAll(entity string) (result chan string, err error) {
 	result = make(chan string)
-	conn, err := Connect()
+	conn := NextPoolCon()
 	if err != nil {
 		logrus.Errorln(err)
 		conn.Close()
@@ -41,7 +46,7 @@ func GetEntityAll(entity string) (result chan string, err error) {
 
 func GetEntityMany(entity, field, id string) (result chan string, err error) {
 	result = make(chan string)
-	conn, err := Connect()
+	conn := NextPoolCon()
 	if err != nil {
 		logrus.Errorln(err)
 		conn.Close()
@@ -75,7 +80,7 @@ func GetEntityMany(entity, field, id string) (result chan string, err error) {
 }
 
 func GetEntityByID(entity, id string) (row string, err error) {
-	conn, err := Connect()
+	conn := NextPoolCon()
 	defer conn.Close()
 	if err != nil {
 		logrus.Errorln(err)

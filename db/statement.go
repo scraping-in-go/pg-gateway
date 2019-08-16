@@ -8,7 +8,7 @@ import (
 )
 
 func Insert(entity string, insertable model.Insertable) (err error) {
-	conn, err := Connect()
+	conn := NextPoolCon()
 	defer conn.Close()
 	if err != nil {
 		logrus.Errorln(err)
