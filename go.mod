@@ -1,4 +1,4 @@
-module github.com/scraping-in-go/svc-db-gateway
+module github.com/just1689/pg-gateway
 
 go 1.12
 
