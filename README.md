@@ -6,7 +6,7 @@
 This project aims to make it simple and fast to interact with a postgresql database over http.
 
 
-Currently, the application supports inserts, get whole table, get row by id, get rows where field=value. 
+Version 1. Currently, the application supports inserts, get whole table, get row by id, get rows where field=value. 
 
 ## Setup
 
