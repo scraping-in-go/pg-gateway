@@ -5,7 +5,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func GetEntityByID(id string) (entity model.Entity, err error) {
+func GetEntityByID(id string) (row string, err error) {
 	conn, err := Connect()
 	defer conn.Close()
 	if err != nil {
@@ -13,9 +13,9 @@ func GetEntityByID(id string) (entity model.Entity, err error) {
 		return
 	}
 
-	entity = model.Entity{}
-	sql := "select * from entities where id=$1"
-	err = conn.QueryRow(sql, id).Scan(&entity.Entity, &entity.ID, &entity.V)
+	sql := "select row_to_json(entities)as row from entities where id=$1"
+
+	err = conn.QueryRow(sql, id).Scan(&row)
 	if err != nil {
 		logrus.Errorln(err)
 		return

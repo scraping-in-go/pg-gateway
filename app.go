@@ -61,14 +61,13 @@ func handleGet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	entity, err := db.GetEntityByID(id)
+	json, err := db.GetEntityByID(id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	b, _ := json.Marshal(entity)
 	w.WriteHeader(http.StatusOK)
 	w.Header().Add("Context-type", "Application/json")
-	w.Write(b)
+	w.Write([]byte(json))
 
 }

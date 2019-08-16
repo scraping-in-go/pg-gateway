@@ -12,9 +12,9 @@ var DatabaseUser = "postgres"
 var DatabasePassword = os.Getenv("pgpassword")
 var DatabaseDatabase = "scrapedb"
 var DatabasePort = os.Getenv("pgport")
+var dp, _ = strconv.Atoi(DatabasePort)
 
 func Connect() (conn *pgx.Conn, err error) {
-	dp, _ := strconv.Atoi(DatabasePort)
 
 	conn, err = pgx.Connect(pgx.ConnConfig{
 		Host:     DatabaseHost,
