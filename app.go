@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 	"github.com/scraping-in-go/svc-db-gateway/db"
 	"github.com/scraping-in-go/svc-db-gateway/model"
@@ -16,9 +15,35 @@ func main() {
 
 	logrus.Println("Listening on", os.Getenv("listenAddr"))
 	router := mux.NewRouter()
-	router.HandleFunc("/insert", handleInsert)
-	router.HandleFunc("/get/{id}", handleGet)
+
+	router.HandleFunc("/{entity}/{id}", handleGet).Methods("GET")
+	router.HandleFunc("/{entity}", handleInsert).Methods("POST")
 	panic(http.ListenAndServe(os.Getenv("listenAddr"), router))
+}
+
+func handleGet(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	if id == "" {
+		http.Error(w, "You need to supply an id: /{entity}/{id}", http.StatusBadRequest)
+		return
+	}
+
+	entity := vars["entity"]
+	if entity == "" {
+		http.Error(w, "You need to supply an entity: /{entity}/{id}", http.StatusBadRequest)
+		return
+	}
+
+	jsonS, err := db.GetEntityByID(entity, id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Header().Add("Context-type", "Application/json")
+	w.Write([]byte(jsonS))
+
 }
 
 func handleInsert(w http.ResponseWriter, r *http.Request) {
@@ -29,18 +54,23 @@ func handleInsert(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Could not read post body", http.StatusBadRequest)
 		return
 	}
-	entity := model.Entity{}
-	err = json.Unmarshal(b, &entity)
+
+	item := model.Insertable{}
+	err = json.Unmarshal(b, &item)
 	if err != nil {
 		logrus.Errorln(err)
-		http.Error(w, "Could not unmarshal entity from body", http.StatusBadRequest)
+		http.Error(w, "Could not unmarshal item from body", http.StatusBadRequest)
 		return
 	}
 
-	if entity.ID == "" {
-		entity.ID = uuid.New().String()
+	vars := mux.Vars(r)
+	entity := vars["entity"]
+	if entity == "" {
+		http.Error(w, "You need to supply an entity: /{entity}", http.StatusBadRequest)
+		return
 	}
-	err = db.Insert(entity)
+
+	err = db.Insert(entity, item)
 	if err != nil {
 		logrus.Errorln(err)
 		http.Error(w, "Could not insert", http.StatusBadRequest)
@@ -50,24 +80,5 @@ func handleInsert(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Header().Add("Context-type", "Application/json")
 	w.Write([]byte(`{"ok": true}`))
-
-}
-
-func handleGet(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
-	if id == "" {
-		http.Error(w, "You need to supply an id: /get/{id}", http.StatusBadRequest)
-		return
-	}
-
-	json, err := db.GetEntityByID(id)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	w.WriteHeader(http.StatusOK)
-	w.Header().Add("Context-type", "Application/json")
-	w.Write([]byte(json))
 
 }

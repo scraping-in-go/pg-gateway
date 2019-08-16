@@ -7,3 +7,5 @@ type Entity struct {
 	ID     string          `json:"id"`
 	V      json.RawMessage `json:"v"`
 }
+
+type Insertable map[string]json.RawMessage
