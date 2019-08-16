@@ -28,7 +28,7 @@ You may need to set the search_path for the user.
 `ALTER USER postgres SET search_path to myschema;`
 
 ## Usage
-For the example below, we'll assume the application is hosted on localhost:8080
+For the examples below, we'll assume the application is hosted on localhost:8080
 
 ### Get all rows for that table
 ```
