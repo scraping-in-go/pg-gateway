@@ -25,7 +25,9 @@ Currently, the application supports inserts, get whole table, get row by id, get
 - Run the Docker container `docker pull just1689/scraping-in-go:svc-db-gateway`
 
 You may need to set the search_path for the user.
-`ALTER USER postgres SET search_path to myschema;`
+```sql
+ALTER USER postgres SET search_path to myschema
+```
 
 ## Usage
 For the examples below, we'll assume the application is hosted on localhost:8080
