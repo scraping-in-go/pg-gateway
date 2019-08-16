@@ -88,6 +88,6 @@ Memory performance after 1M requests with a concurrency of 100.
 | Bulk insert | Better insert performance. |
 | Pagination | Restricting result sets. |
 | Complex queries | HUGE amount of work. |
-| Deleting (complex | Requires that complex queries are implemented. |
+| Deleting (complex) | Requires that complex queries are implemented. |
 | Updating rows | Requires that complex queries are implemented. |
 
