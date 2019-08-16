@@ -34,15 +34,27 @@ For the examples below, we'll assume the application is hosted on localhost:8080
 ```
 curl http://localhost:8080/users
 ```
+is the equivalent of  
+```
+select * from users
+```
 
 ### Get rows a table where x=y
 ```
 curl http://localhost:8080/users/x/y
 ```
+is the equivalent of  
+```
+select * from users where x=y
+```
 
 ### Get row where id=z
 ```
 curl http://localhost:8080/users/z
+```
+is the equivalent of  
+```
+select * from users where id=z
 ```
 
 ### Insert row into table
@@ -56,6 +68,11 @@ curl -X POST \
 	"name": "Justin"
 }'
 ```
+is the equivalent of  
+```
+insert into entities (entity, id, name) values ("user", "12", "Justin")
+```
+
 
 ### Memory Usage
 Memory performance after 1M requests with a concurrency of 100. 
