@@ -49,6 +49,9 @@ curl -X POST \
 }'
 ```
 
+### Memory Performance
+Memory performance under 1M request with a concurrency of 100. 
+<img src="docs/memory.png" />
 
 ### To do
 - Fast http
