@@ -8,10 +8,6 @@ import (
 	"os"
 )
 
-var LB = []byte("[")
-var RB = []byte("]")
-var COMMA = []byte(",")
-
 func main() {
 
 	logrus.Println("Listening on", os.Getenv("listenAddr"))
