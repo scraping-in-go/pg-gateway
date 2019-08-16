@@ -17,10 +17,13 @@ Currently, the application supports inserts, get whole table, get row by id, get
 | pgpassword | Postgresql password |
 | pgdb | Postgresql database |
 | pgport | Postgresql port |
-| poolSize | Number of postgresql connection to keep open |
+| poolSize | Number of postgresql connections to keep open |
 
 - Build from source or
 - Run the Docker container `docker pull just1689/scraping-in-go:svc-db-gateway`
+
+You may need to set the search_path for the user.
+`ALTER USER postgres SET search_path to myschema;`
 
 ## Usage
 For the example below, we'll assume the application is hosted on localhost:8080
