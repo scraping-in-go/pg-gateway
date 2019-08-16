@@ -86,6 +86,8 @@ Memory performance after 1M requests with a concurrency of 100.
 | Deleting by id | Important feature. |
 | FastHTTP | Fewer allocs for each request. |
 | Bulk insert | Better insert performance. |
+| DockerHub | Project, repository and notes. |
+| Docker Service | Simple script to spin up db and service. |
 | Pagination | Restricting result sets. |
 | Complex queries | HUGE amount of work. |
 | Deleting (complex) | Requires that complex queries are implemented. |
