@@ -55,10 +55,10 @@ Memory performance under 1M request with a concurrency of 100.
 
 ### To do
 - Fast http
+- Websocket support (including client)
+- Bulk insert
+- Pagination
 - Complex queries like postgrest
 - Delete
 - Update where
-- Bulk insert
-- Pagination
-- Websocket support (including client)
 
