@@ -31,34 +31,34 @@ You may need to set the search_path for the user.
 For the examples below, we'll assume the application is hosted on localhost:8080
 
 ### Get all rows for that table
-```
+```shell script
 curl http://localhost:8080/users
 ```
 is the equivalent of  
-```
-select * from users
+```sql
+SELECT * FROM users
 ```
 
 ### Get rows a table where x=y
-```
+```shell script
 curl http://localhost:8080/users/x/y
 ```
 is the equivalent of  
-```
-select * from users where x=y
+```sql
+SELECT * FROM users WHERE x=y
 ```
 
 ### Get row where id=z
-```
+```shell script
 curl http://localhost:8080/users/z
 ```
 is the equivalent of  
-```
-select * from users where id=z
+```sql
+SELECT * FROM users WHERE id=z
 ```
 
 ### Insert row into table
-```
+```shell script
 curl -X POST \
   http://localhost:8080/entities \
   -H 'Content-Type: application/json' \
@@ -69,8 +69,8 @@ curl -X POST \
 }'
 ```
 is the equivalent of  
-```
-insert into entities (entity, id, name) values ("user", "12", "Justin")
+```sql
+INSERT INTO USERS (entity, id, name) VALUES ("user", "12", "Justin")
 ```
 
 
