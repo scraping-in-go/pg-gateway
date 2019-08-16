@@ -1,12 +1,12 @@
 # PG Gateway
-<a href="https://goreportcard.com/report/github.com/just1689/pg-gateway"><img src="https://goreportcard.com/badge/github.com/just1689/pg-gateway" /></a><br />
+<a href="https://github.com/just1689/pg-gateway/releases"><img src="https://img.shields.io/badge/version-1.2.3-blue" /></a>&nbsp;<a href="https://goreportcard.com/report/github.com/just1689/pg-gateway"><img src="https://goreportcard.com/badge/github.com/just1689/pg-gateway" /></a><br />
 
 <img align="right" height="200" src="docs/pg2.png" />
 
 This project aims to make it simple and fast to interact with a postgresql database over http.
 
 
-Version 1. Currently, the application supports inserts, get whole table, get row by id, get rows where field=value. 
+Currently, the application supports inserts, get whole table, get row by id, get rows where field=value. 
 
 ## Setup
 
