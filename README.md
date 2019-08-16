@@ -19,13 +19,34 @@ This project aims to make it simple and fast to interact with a postgresql datab
 - Run the Docker container `docker pull just1689/scraping-in-go:svc-db-gateway`
 
 ## Usage
-### Get all rows for that table
+For the example below, we'll assume the application is hosted on localhost:8080
 
-- Get rows for key=value for table
-- Get row where id=X
-- Insert row into table
+### Get all rows for that table
+`curl http://localhost:8080/users`
+
+### Get rows a table where x=y
+`curl http://localhost:8080/users/x/y`
+
+### Get row where id=z
+`curl http://localhost:8080/users/z`
+
+### Insert row into table
+```
+curl -X POST \
+  http://localhost:8080/entities \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: da996145-35d6-4e19-88b6-f7395cb229ce' \
+  -H 'cache-control: no-cache' \
+  -d '{
+	"entity": "user",
+	"id": "12",
+	"name": "Justin"
+}'
+```
+
 
 ### To do
+- Fast http
 - Complex queries like postgrest
 - Delete
 - Update where
