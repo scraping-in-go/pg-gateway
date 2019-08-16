@@ -80,12 +80,13 @@ INSERT INTO users (entity, id, name) VALUES ("user", "12", "Justin")
 Memory performance after 1M requests with a concurrency of 100. 
 <img src="docs/memory3.png" />
 
-### To do
-- FastHTTP
-- Websocket support (including client)
-- Bulk insert
-- Pagination
-- Complex queries like postgrest
-- Delete
-- Update where
+### Roadmap
+| Item | Notes |
+|---|---|
+| FastHTTP | Fewer allocs for each request. |
+| Bulk insert | Better insert performance. |
+| Pagination | Restricting result sets. |
+| Complex queries | HUGE amount of work. |
+| Deleting rows | Requires that complex queries are implemented. |
+| Updating rows | Requires that complex queries are implemented. |
 
