@@ -83,10 +83,11 @@ Memory performance after 1M requests with a concurrency of 100.
 ### Roadmap
 | Item | Notes |
 |---|---|
+| Deleting by id | Important feature. |
 | FastHTTP | Fewer allocs for each request. |
 | Bulk insert | Better insert performance. |
 | Pagination | Restricting result sets. |
 | Complex queries | HUGE amount of work. |
-| Deleting rows | Requires that complex queries are implemented. |
+| Deleting (complex | Requires that complex queries are implemented. |
 | Updating rows | Requires that complex queries are implemented. |
 
