@@ -72,7 +72,7 @@ curl -X POST \
 ```
 is the equivalent of  
 ```sql
-INSERT INTO users (entity, id, name) VALUES ("user", "12", "Justin")
+INSERT INTO entities (entity, id, name) VALUES ("user", "12", "Justin")
 ```
 
 
