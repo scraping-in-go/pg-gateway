@@ -22,6 +22,7 @@ func main() {
 
 	router.HandleFunc("/{entity}", handleGetAll).Methods("GET")
 	router.HandleFunc("/{entity}/{id}", handleGet).Methods("GET")
+	router.HandleFunc("/{entity}/{field}/{id}", handleGetMany).Methods("GET")
 	router.HandleFunc("/{entity}", handleInsert).Methods("POST")
 	panic(http.ListenAndServe(os.Getenv("listenAddr"), router))
 }
@@ -39,8 +40,8 @@ func handleGetAll(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	w.Header().Set("Content-type", "Application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Header().Add("Content-type", "Application/json")
 	rows := 0
 	w.Write(LB)
 	for row := range c {
@@ -74,9 +75,49 @@ func handleGet(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	w.Header().Set("Content-type", "Application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Header().Add("Content-type", "Application/json")
 	w.Write([]byte(jsonS))
+
+}
+
+func handleGetMany(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+
+	entity := vars["entity"]
+	if entity == "" {
+		http.Error(w, "You need to supply an entity", http.StatusBadRequest)
+		return
+	}
+	field := vars["field"]
+	if field == "" {
+		http.Error(w, "You need to supply an field", http.StatusBadRequest)
+		return
+	}
+	id := vars["id"]
+	if id == "" {
+		http.Error(w, "You need to supply an id", http.StatusBadRequest)
+		return
+	}
+
+	c, err := db.GetEntityMany(entity, field, id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-type", "Application/json")
+	w.WriteHeader(http.StatusOK)
+	rows := 0
+	w.Write(LB)
+	for row := range c {
+		rows++
+		if rows > 1 {
+			w.Write(COMMA)
+		}
+		w.Write([]byte(row))
+
+	}
+	w.Write(RB)
 
 }
 
@@ -110,9 +151,6 @@ func handleInsert(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Could not insert", http.StatusBadRequest)
 		return
 	}
-
 	w.WriteHeader(http.StatusOK)
-	w.Header().Add("Context-type", "Application/json")
-	w.Write([]byte(`{"ok": true}`))
 
 }
