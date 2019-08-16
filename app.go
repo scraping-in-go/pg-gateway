@@ -11,6 +11,10 @@ import (
 	"os"
 )
 
+var LB = []byte("[")
+var RB = []byte("]")
+var COMMA = []byte(",")
+
 func main() {
 
 	logrus.Println("Listening on", os.Getenv("listenAddr"))
@@ -38,16 +42,16 @@ func handleGetAll(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Header().Add("Content-type", "Application/json")
 	rows := 0
-	w.Write([]byte("["))
+	w.Write(LB)
 	for row := range c {
 		rows++
 		if rows > 1 {
-			w.Write([]byte(","))
+			w.Write(COMMA)
 		}
 		w.Write([]byte(row))
 
 	}
-	w.Write([]byte("]"))
+	w.Write(RB)
 
 }
 
