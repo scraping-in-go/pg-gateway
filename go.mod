@@ -3,7 +3,8 @@ module github.com/scraping-in-go/svc-db-gateway
 go 1.12
 
 require (
-	github.com/google/uuid v1.1.1
+	github.com/deanishe/go-env v0.0.0-20180802210245-d1f6eb183697
+	github.com/google/uuid v1.1.1 // indirect
 	github.com/gorilla/mux v1.7.3
 	github.com/jackc/pgx v3.5.0+incompatible
 	github.com/pkg/errors v0.8.1 // indirect
