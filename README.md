@@ -1,4 +1,7 @@
 # PG Gateway
+<img align="right" width="290" height="290" src="docs/pg.png" />
+
+
 
 This project aims to make it simple and fast to interact with a postgresql database over http.
 
