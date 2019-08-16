@@ -53,7 +53,7 @@ curl -X POST \
 
 ### Memory Performance
 Memory performance after 1M requests with a concurrency of 100. 
-<img src="docs/memory2.png" />
+<img src="docs/memory3.png" />
 
 ### To do
 - Fast http
