@@ -1,5 +1,5 @@
 # PG Gateway
-<img align="right" height="290" src="docs/pg.png" />
+<img align="right" height="200" src="docs/pg.png" />
 
 
 
