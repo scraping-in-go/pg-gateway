@@ -3,7 +3,7 @@
 
 <img align="right" height="200" src="docs/pg2.png" />
 
-This project aims to make it simple and fast to interact with a postgresql database over http.
+This project aims to make it simple and fast to interact with a postgresql database over http inspired by <a href="https://github.com/PostgREST/postgrest">Postgrest</a>.
 
 
 Currently, the application supports inserts, get whole table, get row by id, get rows where field=value. 
