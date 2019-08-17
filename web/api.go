@@ -36,10 +36,8 @@ func HandleGetAll(w http.ResponseWriter, r *http.Request) {
 			w.Write(COMMA)
 		}
 		w.Write([]byte(row))
-
 	}
 	w.Write(RB)
-
 }
 
 func HandleGet(w http.ResponseWriter, r *http.Request) {
@@ -133,7 +131,7 @@ func HandleInsert(w http.ResponseWriter, r *http.Request) {
 	err = db.Insert(entity, item)
 	if err != nil {
 		logrus.Errorln(err)
-		http.Error(w, "Could not insert", http.StatusBadRequest)
+		http.Error(w, "Could not insert", http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusOK)
