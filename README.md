@@ -6,7 +6,22 @@
 This project aims to make it simple and fast to interact with a postgresql database over http inspired by <a href="https://github.com/PostgREST/postgrest">Postgrest</a>.
 
 
-Currently, the application supports inserts, get whole table, get row by id, get rows where field=value. 
+## Features
+
+Currently, the application supports the following database interactions 
+- inserts, 
+- get whole table, 
+- get row by id, 
+- get rows where field=value.
+
+Other features
+- For multi-row returns, the application writes rows back to the client as they are read.
+- Low memory (around 8 MB for a busy system).
+- Database connection cache. Each request doesn't have to wait for a new connection to be made.
+- Transfer binary-to-binary. Reading from Postgresql is done in binary and written back to the client without conversion etc.
+- Set the database connection details using environment variables. Great for Cloud Native environments. 
+- Dockefile with light, low attack-surface final image.
+- Listen address an environment variable.
 
 ## Setup
 
