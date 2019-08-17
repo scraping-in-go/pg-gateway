@@ -16,7 +16,7 @@ Currently, the application supports the following database interactions
 
 Other features
 - For multi-row returns, the application writes rows back to the client as they are read.
-- Low memory (around 8 MB for a busy system).
+- Low memory requirement (around 8 MB for entire docker container under high load).
 - Database connection cache. Each request doesn't have to wait for a new connection to be made.
 - Transfer binary-to-binary. Reading from Postgresql is done in binary and written back to the client without conversion etc.
 - Set the database connection details using environment variables. Great for Cloud Native environments. 
