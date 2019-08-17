@@ -1,13 +1,15 @@
 package db
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/just1689/pg-gateway/model"
 	"github.com/sirupsen/logrus"
 	"strconv"
 )
 
-func Insert(entity string, insertable model.Insertable) (err error) {
+type Insertable map[string]json.RawMessage
+
+func Insert(entity string, insertable Insertable) (err error) {
 	conn := NextPoolCon()
 	defer conn.Close()
 	if err != nil {

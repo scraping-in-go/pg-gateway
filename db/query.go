@@ -2,13 +2,8 @@ package db
 
 import (
 	"fmt"
-	"github.com/jackc/pgx"
 	"github.com/sirupsen/logrus"
 )
-
-var NextPoolCon = func() *pgx.Conn {
-	return nil
-}
 
 func GetEntityAll(entity string) (result chan string, err error) {
 	result = make(chan string)

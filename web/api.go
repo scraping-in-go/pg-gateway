@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"github.com/just1689/pg-gateway/db"
-	"github.com/just1689/pg-gateway/model"
 	"github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
@@ -109,6 +108,12 @@ func HandleGetMany(w http.ResponseWriter, r *http.Request) {
 }
 
 func HandleInsert(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	entity := vars["entity"]
+	if entity == "" {
+		http.Error(w, "You need to supply an entity: /{entity}", http.StatusBadRequest)
+		return
+	}
 
 	b, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -117,18 +122,11 @@ func HandleInsert(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	item := model.Insertable{}
+	item := db.Insertable{}
 	err = json.Unmarshal(b, &item)
 	if err != nil {
 		logrus.Errorln(err)
 		http.Error(w, "Could not unmarshal item from body", http.StatusBadRequest)
-		return
-	}
-
-	vars := mux.Vars(r)
-	entity := vars["entity"]
-	if entity == "" {
-		http.Error(w, "You need to supply an entity: /{entity}", http.StatusBadRequest)
 		return
 	}
 

@@ -14,7 +14,6 @@ var DatabaseDatabase = os.Getenv("pgdb")
 var DatabasePort = env.GetInt("pgport")
 
 func Connect() (conn *pgx.Conn, err error) {
-
 	conn, err = pgx.Connect(pgx.ConnConfig{
 		Host:     DatabaseHost,
 		Port:     uint16(DatabasePort),
