@@ -81,9 +81,10 @@ Memory performance after 1M requests with a concurrency of 100.
 <img src="docs/memory3.png" />
 
 ### Roadmap
-| Item | Notes |
+| To do | Notes |
 |---|---|
 | Deleting by id | Important feature. |
+| Better standard for returning errors | Important feature. |
 | FastHTTP | Fewer allocs for each request. |
 | Bulk insert | Better insert performance. |
 | DockerHub | Project, repository and notes. |
