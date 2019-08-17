@@ -84,6 +84,7 @@ Memory performance after 1M requests with a concurrency of 100.
 | To do | Notes |
 |---|---|
 | Deleting by id | Important feature. |
+| Binary db reads | Less conversion. |
 | Better standard for returning errors | Important feature. |
 | FastHTTP | Fewer allocs for each request. |
 | Bulk insert | Better insert performance. |
