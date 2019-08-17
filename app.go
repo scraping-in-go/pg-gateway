@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/deanishe/go-env"
 	"github.com/gorilla/mux"
-	"github.com/scraping-in-go/svc-db-gateway/db"
-	"github.com/scraping-in-go/svc-db-gateway/web"
+	"github.com/just1689/pg-gateway/db"
+	"github.com/just1689/pg-gateway/web"
 	"github.com/sirupsen/logrus"
 	"net/http"
 	"os"

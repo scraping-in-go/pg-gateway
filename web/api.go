@@ -3,8 +3,8 @@ package web
 import (
 	"encoding/json"
 	"github.com/gorilla/mux"
-	"github.com/scraping-in-go/svc-db-gateway/db"
-	"github.com/scraping-in-go/svc-db-gateway/model"
+	"github.com/just1689/pg-gateway/db"
+	"github.com/just1689/pg-gateway/model"
 	"github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
