@@ -5,8 +5,8 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func GetEntityAll(entity string) (result chan string, err error) {
-	result = make(chan string)
+func GetEntityAll(entity string) (result chan []byte, err error) {
+	result = make(chan []byte)
 	conn := NextPoolCon()
 	if err != nil {
 		logrus.Errorln(err)
@@ -24,7 +24,7 @@ func GetEntityAll(entity string) (result chan string, err error) {
 		defer conn.Close()
 		defer close(result)
 		for rows.Next() {
-			s := ""
+			s := []byte{}
 			err := rows.Scan(&s)
 			if err != nil {
 				logrus.Errorln(err)
@@ -39,8 +39,8 @@ func GetEntityAll(entity string) (result chan string, err error) {
 	return
 }
 
-func GetEntityMany(entity, field, id string) (result chan string, err error) {
-	result = make(chan string)
+func GetEntityMany(entity, field, id string) (result chan []byte, err error) {
+	result = make(chan []byte)
 	conn := NextPoolCon()
 	if err != nil {
 		logrus.Errorln(err)
@@ -59,7 +59,7 @@ func GetEntityMany(entity, field, id string) (result chan string, err error) {
 		defer conn.Close()
 		defer close(result)
 		for rows.Next() {
-			s := ""
+			s := []byte{}
 			err := rows.Scan(&s)
 			if err != nil {
 				logrus.Errorln(err)
@@ -74,7 +74,7 @@ func GetEntityMany(entity, field, id string) (result chan string, err error) {
 	return
 }
 
-func GetEntityByID(entity, id string) (row string, err error) {
+func GetEntityByID(entity, id string) (row []byte, err error) {
 	conn := NextPoolCon()
 	defer conn.Close()
 	if err != nil {

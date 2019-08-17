@@ -35,7 +35,7 @@ func HandleGetAll(w http.ResponseWriter, r *http.Request) {
 		if rows > 1 {
 			w.Write(COMMA)
 		}
-		w.Write([]byte(row))
+		w.Write(row)
 	}
 	w.Write(RB)
 }
@@ -61,7 +61,7 @@ func HandleGet(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-type", "Application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(jsonS))
+	w.Write(jsonS)
 
 }
 
@@ -98,7 +98,7 @@ func HandleGetMany(w http.ResponseWriter, r *http.Request) {
 		if rows > 1 {
 			w.Write(COMMA)
 		}
-		w.Write([]byte(row))
+		w.Write(row)
 
 	}
 	w.Write(RB)
