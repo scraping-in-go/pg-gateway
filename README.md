@@ -84,7 +84,6 @@ Memory performance after 1M requests with a concurrency of 100.
 | To do | Notes |
 |---|---|
 | Deleting by id | Important feature. |
-| Binary db reads | Less conversion. |
 | Handle options request | Allow calls from browsers &amp; frameworks using OPTIONS. |
 | Better standard for returning errors | Important feature. |
 | FastHTTP | Fewer allocs for each request. |
