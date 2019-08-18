@@ -136,6 +136,7 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 ### Roadmap
 | To do | Notes |
 |---|---|
+| Go client | For calling the library. |
 | Handle options request | Allow calls from browsers &amp; frameworks using OPTIONS. |
 | Better standard for returning errors | Important feature. |
 | FastHTTP | Fewer allocs for each request. |
