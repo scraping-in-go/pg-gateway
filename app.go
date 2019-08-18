@@ -19,10 +19,10 @@ func main() {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) { w.WriteHeader(http.StatusOK) })
-	router.HandleFunc("/{entity}", web.HandleGetAll).Methods("GET")
-	router.HandleFunc("/{entity}/{id}", web.HandleGet).Methods("GET")
-	router.HandleFunc("/{entity}/{field}/{id}", web.HandleGetMany).Methods("GET")
-	router.HandleFunc("/{entity}", web.HandleInsert).Methods("POST")
+	router.HandleFunc("/{entity}", web.HandleGetAll).Methods(http.MethodGet)
+	router.HandleFunc("/{entity}/{id}", web.HandleGet).Methods(http.MethodGet)
+	router.HandleFunc("/{entity}/{field}/{id}", web.HandleGetMany).Methods(http.MethodGet)
+	router.HandleFunc("/{entity}", web.HandleInsert).Methods(http.MethodPost)
 	logrus.Println("Listening on", os.Getenv("listenAddr"))
 	panic(http.ListenAndServe(os.Getenv("listenAddr"), router))
 }
