@@ -58,6 +58,8 @@ is the equivalent of
 SELECT * FROM users
 ```
 
+
+
 ### Insert row into table
 ```shell script
 curl -X POST \
@@ -73,6 +75,8 @@ is the equivalent of
 ```sql
 INSERT INTO entities (entity, id, name) VALUES ("user", "12", "Justin")
 ```
+
+
 
 ### Update rows where field=value
 ```shell script
@@ -90,6 +94,8 @@ is the equivalent of
 update entities set entity=$1, id=$2, v=$3 where id=$4
 ```
 
+
+
 ### Delete rows where field=value
 ```shell script
 curl -X DELETE http://localhost:8080/users/id/12
@@ -99,6 +105,8 @@ is the equivalent of
 DELETE FROM entities WHERE id=12
 ```
 
+
+
 ### Get rows a table where x=y
 ```shell script
 curl http://localhost:8080/users/x/y
@@ -107,6 +115,8 @@ is the equivalent of
 ```sql
 SELECT * FROM users WHERE x=y
 ```
+
+
 
 ### Get row where id=z
 ```shell script
@@ -120,7 +130,7 @@ SELECT * FROM users WHERE id=z
 
 
 ### Memory Usage
-Memory performance after 1M requests with a concurrency of 100. 
+Memory usage after 1 million requests at a concurrency of 100 requests. 
 <img src="docs/memory3.png" />
 
 ### Roadmap
