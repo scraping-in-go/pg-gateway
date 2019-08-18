@@ -54,6 +54,9 @@ func GetEntityByID(entity, id string) (row []byte, err error) {
 	defer conn.Close()
 	sql := fmt.Sprintf("select row_to_json(%s)as row from %s where id=$1", entity, entity)
 	if err = conn.QueryRow(sql, id).Scan(&row); err != nil {
+		if err.Error() == pgx.ErrNoRows.Error() {
+			return
+		}
 		logrus.Errorln(err)
 		return
 	}
