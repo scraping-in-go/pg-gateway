@@ -46,3 +46,39 @@ func Insert(entity string, insertable Insertable) (err error) {
 	return
 
 }
+
+func Update(entity, field, id string, insertable Insertable) (err error) {
+	conn := NextPoolCon()
+	defer conn.Close()
+
+	cols := ""
+	colID := 0
+	vals := make([]interface{}, 0)
+	for colName, val := range insertable {
+		colID++
+		if cols == "" {
+			cols = colName + "=$" + strconv.Itoa(colID)
+		} else {
+			cols += ", " + colName + "=$" + strconv.Itoa(colID)
+		}
+
+		va := string(val)
+		if va[:1] == "\"" {
+			va = va[1 : len(va)-1]
+			vals = append(vals, va)
+		} else {
+			vals = append(vals, val)
+		}
+
+	}
+
+	colID++
+	sql := fmt.Sprintf("update %s set %s where %s=%s", entity, cols, field, "$"+strconv.Itoa(colID))
+	vals = append(vals, id)
+	if _, err = conn.Exec(sql, vals...); err != nil {
+		logrus.Errorln(err)
+		return
+	}
+	return
+
+}

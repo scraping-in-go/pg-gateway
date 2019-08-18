@@ -65,6 +65,48 @@ func HandleGet(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func HandlePatch(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	entity := vars["entity"]
+	if entity == "" {
+		http.Error(w, "You need to supply an entity: /{entity}/{id}", http.StatusBadRequest)
+		return
+	}
+	field := vars["field"]
+	if field == "" {
+		http.Error(w, "You need to supply an field", http.StatusBadRequest)
+		return
+	}
+	id := vars["id"]
+	if id == "" {
+		http.Error(w, "You need to supply an id: /{entity}/{id}", http.StatusBadRequest)
+		return
+	}
+
+	b, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		logrus.Errorln(err)
+		http.Error(w, "Could not read post body", http.StatusBadRequest)
+		return
+	}
+
+	item := db.Insertable{}
+	err = json.Unmarshal(b, &item)
+	if err != nil {
+		logrus.Errorln(err)
+		http.Error(w, "Could not unmarshal item from body", http.StatusBadRequest)
+		return
+	}
+
+	err = db.Update(entity, field, id, item)
+	if err != nil {
+		logrus.Errorln(err)
+		http.Error(w, "Could not insert", http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+}
+
 func HandleGetMany(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
