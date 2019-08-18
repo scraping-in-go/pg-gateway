@@ -22,6 +22,7 @@ func main() {
 	router.HandleFunc("/{entity}", web.HandleGetAll).Methods(http.MethodGet)
 	router.HandleFunc("/{entity}/{id}", web.HandleGet).Methods(http.MethodGet)
 	router.HandleFunc("/{entity}/{field}/{id}", web.HandlePatch).Methods(http.MethodPatch)
+	router.HandleFunc("/{entity}/{field}/{id}", web.HandleDelete).Methods(http.MethodDelete)
 	router.HandleFunc("/{entity}/{field}/{id}", web.HandleGetMany).Methods(http.MethodGet)
 	router.HandleFunc("/{entity}", web.HandleInsert).Methods(http.MethodPost)
 	logrus.Println("Listening on", os.Getenv("listenAddr"))

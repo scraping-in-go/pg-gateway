@@ -82,3 +82,16 @@ func Update(entity, field, id string, insertable Insertable) (err error) {
 	return
 
 }
+
+func Delete(entity, field, id string) (err error) {
+	conn := NextPoolCon()
+	defer conn.Close()
+
+	sql := fmt.Sprintf("delete from %s where %s=$1", entity, field)
+	if _, err = conn.Exec(sql, id); err != nil {
+		logrus.Errorln(err)
+		return
+	}
+	return
+
+}

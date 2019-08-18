@@ -101,7 +101,34 @@ func HandlePatch(w http.ResponseWriter, r *http.Request) {
 	err = db.Update(entity, field, id, item)
 	if err != nil {
 		logrus.Errorln(err)
-		http.Error(w, "Could not insert", http.StatusInternalServerError)
+		http.Error(w, "Could not update", http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+}
+
+func HandleDelete(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	entity := vars["entity"]
+	if entity == "" {
+		http.Error(w, "You need to supply an entity: /{entity}/{id}", http.StatusBadRequest)
+		return
+	}
+	field := vars["field"]
+	if field == "" {
+		http.Error(w, "You need to supply an field", http.StatusBadRequest)
+		return
+	}
+	id := vars["id"]
+	if id == "" {
+		http.Error(w, "You need to supply an id: /{entity}/{id}", http.StatusBadRequest)
+		return
+	}
+
+	err := db.Delete(entity, field, id)
+	if err != nil {
+		logrus.Errorln(err)
+		http.Error(w, "Could not delete", http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusOK)
