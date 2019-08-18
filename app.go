@@ -6,6 +6,7 @@ import (
 	"github.com/just1689/pg-gateway/db"
 	"github.com/just1689/pg-gateway/web"
 	"github.com/sirupsen/logrus"
+	_ "go.uber.org/automaxprocs"
 	"net/http"
 	"os"
 )
@@ -13,6 +14,7 @@ import (
 var poolSize = env.GetInt("poolSize")
 
 func main() {
+
 	checkEnvironmentVars()
 	logrus.Println("Starting DB pool of size", poolSize)
 	db.NextPoolCon = db.StartPool(poolSize)
