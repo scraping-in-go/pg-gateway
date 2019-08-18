@@ -12,10 +12,6 @@ type Insertable map[string]json.RawMessage
 func Insert(entity string, insertable Insertable) (err error) {
 	conn := NextPoolCon()
 	defer conn.Close()
-	if err != nil {
-		logrus.Errorln(err)
-		return
-	}
 
 	cols := ""
 	binds := ""
@@ -43,8 +39,7 @@ func Insert(entity string, insertable Insertable) (err error) {
 	}
 
 	sql := fmt.Sprintf("insert into %s (%s) values(%s)", entity, cols, binds)
-	_, err = conn.Exec(sql, vals...)
-	if err != nil {
+	if _, err = conn.Exec(sql, vals...); err != nil {
 		logrus.Errorln(err)
 		return
 	}
