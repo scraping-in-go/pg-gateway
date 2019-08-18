@@ -5,6 +5,8 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+var NextPoolCon func() *pgx.Conn
+
 func StartPool(size int) func() *pgx.Conn {
 	pool := make(chan *pgx.Conn, size)
 	go func() {

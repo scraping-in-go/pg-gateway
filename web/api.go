@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"github.com/just1689/pg-gateway/db"
-	"github.com/just1689/pg-gateway/model"
 	"github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
@@ -36,11 +35,9 @@ func HandleGetAll(w http.ResponseWriter, r *http.Request) {
 		if rows > 1 {
 			w.Write(COMMA)
 		}
-		w.Write([]byte(row))
-
+		w.Write(row)
 	}
 	w.Write(RB)
-
 }
 
 func HandleGet(w http.ResponseWriter, r *http.Request) {
@@ -64,8 +61,77 @@ func HandleGet(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-type", "Application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(jsonS))
+	w.Write(jsonS)
 
+}
+
+func HandlePatch(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	entity := vars["entity"]
+	if entity == "" {
+		http.Error(w, "You need to supply an entity: /{entity}/{id}", http.StatusBadRequest)
+		return
+	}
+	field := vars["field"]
+	if field == "" {
+		http.Error(w, "You need to supply an field", http.StatusBadRequest)
+		return
+	}
+	id := vars["id"]
+	if id == "" {
+		http.Error(w, "You need to supply an id: /{entity}/{id}", http.StatusBadRequest)
+		return
+	}
+
+	b, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		logrus.Errorln(err)
+		http.Error(w, "Could not read post body", http.StatusBadRequest)
+		return
+	}
+
+	item := db.Insertable{}
+	err = json.Unmarshal(b, &item)
+	if err != nil {
+		logrus.Errorln(err)
+		http.Error(w, "Could not unmarshal item from body", http.StatusBadRequest)
+		return
+	}
+
+	err = db.Update(entity, field, id, item)
+	if err != nil {
+		logrus.Errorln(err)
+		http.Error(w, "Could not update", http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+}
+
+func HandleDelete(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	entity := vars["entity"]
+	if entity == "" {
+		http.Error(w, "You need to supply an entity: /{entity}/{id}", http.StatusBadRequest)
+		return
+	}
+	field := vars["field"]
+	if field == "" {
+		http.Error(w, "You need to supply an field", http.StatusBadRequest)
+		return
+	}
+	id := vars["id"]
+	if id == "" {
+		http.Error(w, "You need to supply an id: /{entity}/{id}", http.StatusBadRequest)
+		return
+	}
+
+	err := db.Delete(entity, field, id)
+	if err != nil {
+		logrus.Errorln(err)
+		http.Error(w, "Could not delete", http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
 }
 
 func HandleGetMany(w http.ResponseWriter, r *http.Request) {
@@ -101,7 +167,7 @@ func HandleGetMany(w http.ResponseWriter, r *http.Request) {
 		if rows > 1 {
 			w.Write(COMMA)
 		}
-		w.Write([]byte(row))
+		w.Write(row)
 
 	}
 	w.Write(RB)
@@ -109,6 +175,12 @@ func HandleGetMany(w http.ResponseWriter, r *http.Request) {
 }
 
 func HandleInsert(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	entity := vars["entity"]
+	if entity == "" {
+		http.Error(w, "You need to supply an entity: /{entity}", http.StatusBadRequest)
+		return
+	}
 
 	b, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -117,7 +189,7 @@ func HandleInsert(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	item := model.Insertable{}
+	item := db.Insertable{}
 	err = json.Unmarshal(b, &item)
 	if err != nil {
 		logrus.Errorln(err)
@@ -125,17 +197,10 @@ func HandleInsert(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	vars := mux.Vars(r)
-	entity := vars["entity"]
-	if entity == "" {
-		http.Error(w, "You need to supply an entity: /{entity}", http.StatusBadRequest)
-		return
-	}
-
 	err = db.Insert(entity, item)
 	if err != nil {
 		logrus.Errorln(err)
-		http.Error(w, "Could not insert", http.StatusBadRequest)
+		http.Error(w, "Could not insert", http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusOK)
