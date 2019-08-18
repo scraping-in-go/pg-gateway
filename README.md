@@ -21,7 +21,7 @@ Other features
 - Transfer binary-to-binary. Reading from Postgresql is done in binary and written back to the client without conversion etc.
 - Set the database connection details using environment variables. Great for Cloud Native environments. 
 - Dockefile with light, low attack-surface final image.
-- Listen address an environment variable.
+- Listen address can be set by an environment variable.
 
 ## Setup
 
@@ -37,7 +37,7 @@ Other features
 | poolSize | Number of postgresql connections to keep open |
 
 - Build from source or
-- Run the Docker container `docker pull just1689/scraping-in-go:svc-db-gateway`
+- Run the Docker container `docker pull just1689/pg-gateway:latest`
 
 You may need to set the search_path for the user.
 ```sql
@@ -99,14 +99,13 @@ Memory performance after 1M requests with a concurrency of 100.
 | To do | Notes |
 |---|---|
 | Deleting by id | Important feature. |
+| Updating by id | Important feature. |
 | Handle options request | Allow calls from browsers &amp; frameworks using OPTIONS. |
 | Better standard for returning errors | Important feature. |
 | FastHTTP | Fewer allocs for each request. |
 | Bulk insert | Better insert performance. |
-| DockerHub | Project, repository and notes. |
 | Docker Service | Simple script to spin up db and service. |
 | Pagination | Restricting result sets. |
 | Complex queries | HUGE amount of work. |
 | Deleting (complex) | Requires that complex queries are implemented. |
-| Updating rows | Requires that complex queries are implemented. |
 
