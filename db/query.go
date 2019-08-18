@@ -2,17 +2,13 @@ package db
 
 import (
 	"fmt"
+	"github.com/jackc/pgx"
 	"github.com/sirupsen/logrus"
 )
 
 func GetEntityAll(entity string) (result chan []byte, err error) {
 	result = make(chan []byte)
 	conn := NextPoolCon()
-	if err != nil {
-		logrus.Errorln(err)
-		conn.Close()
-		return
-	}
 	sql := fmt.Sprintf("select row_to_json(%s)as row from %s", entity, entity)
 	rows, err := conn.Query(sql)
 	if err != nil {
@@ -20,33 +16,13 @@ func GetEntityAll(entity string) (result chan []byte, err error) {
 		conn.Close()
 		return
 	}
-	go func() {
-		defer conn.Close()
-		defer close(result)
-		for rows.Next() {
-			s := []byte{}
-			err := rows.Scan(&s)
-			if err != nil {
-				logrus.Errorln(err)
-			}
-			result <- s
-		}
-		if err != nil {
-			logrus.Errorln(err)
-			return
-		}
-	}()
+	go rowsToChan(rows, result, func() { conn.Close() })
 	return
 }
 
 func GetEntityMany(entity, field, id string) (result chan []byte, err error) {
 	result = make(chan []byte)
 	conn := NextPoolCon()
-	if err != nil {
-		logrus.Errorln(err)
-		conn.Close()
-		return
-	}
 	sql := fmt.Sprintf("select row_to_json(%s)as row from %s where %s=$1", entity, entity, field)
 	rows, err := conn.Query(sql, id)
 	if err != nil {
@@ -55,35 +31,29 @@ func GetEntityMany(entity, field, id string) (result chan []byte, err error) {
 		conn.Close()
 		return
 	}
-	go func() {
-		defer conn.Close()
-		defer close(result)
-		for rows.Next() {
-			s := []byte{}
-			err := rows.Scan(&s)
-			if err != nil {
-				logrus.Errorln(err)
-			}
-			result <- s
-		}
-		if err != nil {
-			logrus.Errorln(err)
-			return
-		}
-	}()
+	go rowsToChan(rows, result, func() { conn.Close() })
 	return
+}
+
+func rowsToChan(rows *pgx.Rows, result chan []byte, closer func()) {
+	for rows.Next() {
+		s := []byte{}
+		if err := rows.Scan(&s); err != nil {
+			logrus.Errorln(err)
+			continue
+		}
+		result <- s
+	}
+	close(result)
+	rows.Close()
+	closer()
 }
 
 func GetEntityByID(entity, id string) (row []byte, err error) {
 	conn := NextPoolCon()
 	defer conn.Close()
-	if err != nil {
-		logrus.Errorln(err)
-		return
-	}
 	sql := fmt.Sprintf("select row_to_json(%s)as row from %s where id=$1", entity, entity)
-	err = conn.QueryRow(sql, id).Scan(&row)
-	if err != nil {
+	if err = conn.QueryRow(sql, id).Scan(&row); err != nil {
 		logrus.Errorln(err)
 		return
 	}
