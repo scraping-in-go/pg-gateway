@@ -11,6 +11,7 @@ This project aims to make it simple and fast to interact with a postgresql datab
 Currently, the application supports the following database interactions 
 - inserts, 
 - update where field=value,
+- delete where field=value,
 - get whole table, 
 - get row by id, 
 - get rows where field=value.
@@ -89,6 +90,15 @@ is the equivalent of
 update entities set entity=$1, id=$2, v=$3 where id=$4
 ```
 
+### Delete rows where field=value
+```shell script
+curl -X DELETE http://localhost:8080/users/id/12
+```
+is the equivalent of  
+```sql
+DELETE FROM entities WHERE id=12
+```
+
 ### Get rows a table where x=y
 ```shell script
 curl http://localhost:8080/users/x/y
@@ -116,11 +126,10 @@ Memory performance after 1M requests with a concurrency of 100.
 ### Roadmap
 | To do | Notes |
 |---|---|
-| Deleting by id | Important feature. |
 | Handle options request | Allow calls from browsers &amp; frameworks using OPTIONS. |
 | Better standard for returning errors | Important feature. |
 | FastHTTP | Fewer allocs for each request. |
-| Bulk insert | Better insert performance. |
+| Bulk inserts | Better insert performance. |
 | Docker Service | Simple script to spin up db and service. |
 | Pagination | Restricting result sets. |
 | Complex queries | HUGE amount of work. |
