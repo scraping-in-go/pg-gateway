@@ -10,6 +10,7 @@ This project aims to make it simple and fast to interact with a postgresql datab
 
 Currently, the application supports the following database interactions 
 - inserts, 
+- update where field=value,
 - get whole table, 
 - get row by id, 
 - get rows where field=value.
@@ -56,6 +57,38 @@ is the equivalent of
 SELECT * FROM users
 ```
 
+### Insert row into table
+```shell script
+curl -X POST \
+  http://localhost:8080/entities \
+  -H 'Content-Type: application/json' \
+  -d '{
+	"entity": "user",
+	"id": "12",
+	"name": "Justin"
+}'
+```
+is the equivalent of  
+```sql
+INSERT INTO entities (entity, id, name) VALUES ("user", "12", "Justin")
+```
+
+### Update rows where field=value
+```shell script
+curl -X PATCH http://localhost:8080/users/id/12
+  http://localhost:8080/entities \
+  -H 'Content-Type: application/json' \
+  -d '{
+	"entity": "user",
+	"id": "12",
+	"name": "Justin"
+}'
+```
+is the equivalent of  
+```sql
+update entities set entity=$1, id=$2, v=$3 where id=$4
+```
+
 ### Get rows a table where x=y
 ```shell script
 curl http://localhost:8080/users/x/y
@@ -74,21 +107,6 @@ is the equivalent of
 SELECT * FROM users WHERE id=z
 ```
 
-### Insert row into table
-```shell script
-curl -X POST \
-  http://localhost:8080/entities \
-  -H 'Content-Type: application/json' \
-  -d '{
-	"entity": "user",
-	"id": "12",
-	"name": "Justin"
-}'
-```
-is the equivalent of  
-```sql
-INSERT INTO entities (entity, id, name) VALUES ("user", "12", "Justin")
-```
 
 
 ### Memory Usage
@@ -99,7 +117,6 @@ Memory performance after 1M requests with a concurrency of 100.
 | To do | Notes |
 |---|---|
 | Deleting by id | Important feature. |
-| Updating by id | Important feature. |
 | Handle options request | Allow calls from browsers &amp; frameworks using OPTIONS. |
 | Better standard for returning errors | Important feature. |
 | FastHTTP | Fewer allocs for each request. |
