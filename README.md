@@ -138,7 +138,7 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 |---|---|
 | Go client | For calling the library. |
 | Handle options request | Allow calls from browsers &amp; frameworks using OPTIONS. |
-| Better standard for returning errors | Important feature. |
+| Http response codes | Important feature. |
 | FastHTTP | Fewer allocs for each request. |
 | Bulk inserts | Better insert performance. |
 | Docker Service | Simple script to spin up db and service. |
