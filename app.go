@@ -34,6 +34,7 @@ func main() {
 func checkEnvironmentVars() {
 	if poolSize == 0 {
 		logrus.Println("Setting poolSize to 1")
+		poolSize = 1
 	}
 
 	//TODO: check and panic if unable to proceed
