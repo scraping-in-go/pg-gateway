@@ -31,11 +31,11 @@ func (r *readerItem) Next() (b byte, eof bool) {
 func GetEntityAllAsync(svr string, entity string) (results chan []byte, err error) {
 	url := svr + "/" + entity
 	resp, err := http.Get(url)
-	defer resp.Body.Close()
 	if err != nil {
 		logrus.Error(err)
 		return
 	}
+	defer resp.Body.Close()
 
 	results = make(chan []byte)
 	go func() {
