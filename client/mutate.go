@@ -9,6 +9,7 @@ import (
 	"strconv"
 )
 
+//Insert accepts a server addr, the tables name and the instance to be inserted
 func Insert(svr string, entity string, i interface{}) (err error) {
 	url := svr + "/" + entity
 	b, err := json.Marshal(i)
@@ -29,6 +30,7 @@ func Insert(svr string, entity string, i interface{}) (err error) {
 
 }
 
+//Update accepts a server addr, the tables name, the id value for row to be updated
 func Update(svr string, entity, field, id string, i interface{}) (err error) {
 	url := svr + "/" + entity + "/" + field + "/" + id
 	b, err := json.Marshal(i)
@@ -57,6 +59,7 @@ func Update(svr string, entity, field, id string, i interface{}) (err error) {
 	return
 }
 
+//Delete accepts a server addr, the tables name, the id value for row to be deleted
 func Delete(svr string, entity, field, id string) (err error) {
 	url := svr + "/" + entity + "/" + field + "/" + id
 	req, err := http.NewRequest(http.MethodDelete, url, nil)
