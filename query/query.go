@@ -6,6 +6,16 @@ import (
 	"strings"
 )
 
+var comparisonMap = map[string]string{
+	"eq":  "=",
+	"gt":  ">",
+	"lt":  "<",
+	"gte": ">=",
+	"lte": "<=",
+	"neg": "!=",
+	"is":  "is",
+}
+
 type Query struct {
 	Entity      string
 	Select      []string
@@ -108,20 +118,10 @@ func (c *Comparison) ComparatorToURL() string {
 	return c.Field + "=" + c.Comparator + "." + c.Value
 }
 func (c *Comparison) ComparatorToSQL() string {
-	if c.Comparator == "eq" {
-		return "="
-	} else if c.Comparator == "neq" {
-		return "!="
-	} else if c.Comparator == "gte" {
-		return ">="
-	} else if c.Comparator == "lte" {
-		return "<="
-	} else if c.Comparator == "lt" {
-		return "<"
-	} else if c.Comparator == "gt" {
-		return ">"
-	} else if c.Comparator == "is" {
-		return "is"
+	v, found := comparisonMap[c.Comparator]
+	if !found {
+		return c.Comparator
 	}
-	return c.Comparator
+	return v
+
 }
