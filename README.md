@@ -150,4 +150,5 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 | Bulk inserts | Better insert performance. |
 | Docker Service | Simple script to spin up db and service. |
 | Pagination | Restricting result sets. |
+| Benchmark | Read, write, allocs, memory performance. |
 
