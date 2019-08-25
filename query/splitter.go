@@ -32,15 +32,50 @@ func BuildQueryFromURL(u string) (result Query) {
 
 	//Build a comparison
 	co := Comparison{}
+
 	idx = strings.Index(u, "=")
 	co.Field = u[0:idx]
 	u = u[idx+1:]
+
 	idx = strings.Index(u, ".")
 	co.Comparator = u[0:idx]
 	u = u[idx+1:]
-	co.Value = u[0:idx]
+
+	if strings.Index(u, "&") == -1 {
+		co.Value = u[0:idx]
+	} else {
+		co.Value = u[0 : idx-1]
+		u = u[idx-1:]
+	}
 
 	result.Comparisons = append(result.Comparisons, co)
+
+	another := strings.Index(u, "&") != -1
+	u = u[1:]
+	for another {
+
+		//Build a comparison
+		co := Comparison{}
+
+		idx = strings.Index(u, "=")
+		co.Field = u[0:idx]
+		u = u[idx+1:]
+
+		idx = strings.Index(u, ".")
+		co.Comparator = u[0:idx]
+		u = u[idx+1:]
+
+		if strings.Index(u, "&") == -1 {
+			co.Value = u
+		} else {
+			co.Value = u[0 : idx-1]
+			u = u[idx-1:]
+		}
+
+		result.Comparisons = append(result.Comparisons, co)
+
+		another = strings.Index(u, "&") != -1
+	}
 
 	return
 
