@@ -3,6 +3,7 @@ package query
 import (
 	"github.com/sirupsen/logrus"
 	"strconv"
+	"strings"
 )
 
 type Query struct {
@@ -43,6 +44,8 @@ func (q *Query) processOtherQuery(field, value string) {
 		i, _ := strconv.Atoi(value)
 		q.Limit = i
 		return
+	} else if field == "select" {
+		q.Select = strings.Split(value, ",")
 	}
 	logrus.Errorln("not sure how to handle", field, value, "for processOtherQuery")
 

@@ -139,3 +139,26 @@ func TestBuildQueryFromURLForLimitFirst(t *testing.T) {
 		return
 	}
 }
+
+func TestBuildQueryFromURLForSelect1(t *testing.T) {
+	url := "people?age=gte.25&active=is.true&name=eq.Justin&limit=10&select=id"
+	query := BuildQueryFromURL(url)
+	if len(query.Select) != 1 {
+		t.Error("did not find a select! should be one")
+		return
+	}
+}
+
+func TestBuildQueryFromURLForSelect2(t *testing.T) {
+	url := "people?age=gte.25&active=is.true&name=eq.Justin&limit=10&select=id,name"
+	query := BuildQueryFromURL(url)
+	if len(query.Select) != 2 {
+		t.Error("did not find 2 select! should be 2")
+		return
+	}
+
+	if query.Select[0] != "id" || query.Select[1] != "name" {
+		t.Error("expected selects to be id and name, not", query.Select[0], query.Select[1])
+	}
+
+}
