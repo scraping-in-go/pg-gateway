@@ -109,24 +109,32 @@ DELETE FROM entities WHERE id=12
 
 ### Get rows a table where x=y
 ```shell script
-curl http://localhost:8080/users/x/y
+curl http://localhost:8080/users?x=eq.y
 ```
 is the equivalent of  
 ```sql
-SELECT * FROM users WHERE x=y
+SELECT * FROM users WHERE x=$1
 ```
 
 
 
-### Get row where id=z
+### Get row where a=b and c>d
 ```shell script
-curl http://localhost:8080/users/z
+curl http://localhost:8080/users?a=eq.b&c=gt.d
 ```
 is the equivalent of  
 ```sql
-SELECT * FROM users WHERE id=z
+SELECT * FROM users WHERE a=$1 AND c>$2
 ```
 
+### Supported Comparisons
+| Comparator | Explanation |
+|---|---|
+| eq | equals |
+| lt | Less than |
+| gt | Greater than |
+| lte | Less than or equal to |
+| gte | Greater than or equal to |
 
 
 ### Memory Usage
@@ -136,7 +144,7 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 ### Roadmap v2
 | To do | Notes |
 |---|---|
-| Complex query client | Update the client |
+| Complex query async client | Update the client |
 | Http response codes | Important feature. |
 | Docs | get, delete, update, insert, limit, select, client, client async, complex queries |
 | More comparators | Implementation and docs |
