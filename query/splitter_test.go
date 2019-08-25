@@ -121,3 +121,21 @@ func TestBuildQueryFromURLForMultiQuery3(t *testing.T) {
 	}
 
 }
+
+func TestBuildQueryFromURLForLimit(t *testing.T) {
+	url := "people?age=gte.25&active=is.true&name=eq.Justin&limit=10"
+	query := BuildQueryFromURL(url)
+	if query.Limit != 10 {
+		t.Error("did not get limit of 10, instead got", query.Limit)
+		return
+	}
+}
+
+func TestBuildQueryFromURLForLimitFirst(t *testing.T) {
+	url := "people?limit=10"
+	query := BuildQueryFromURL(url)
+	if query.Limit != 10 {
+		t.Error("did not get limit for first param of 10, instead got", query.Limit)
+		return
+	}
+}
