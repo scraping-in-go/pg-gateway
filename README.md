@@ -138,11 +138,7 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 |---|---|
 | Complex query client | Update the client |
 | Http response codes | Important feature. |
-| Client docs | Documentation with examples |
-| Async docs | Documentation with examples |
-| Select docs | Documentation with examples |
-| Limit docs | Documentation with examples |
-| Complex query docs | Documentation with examples |
+| Docs | get, delete, update, insert, limit, select, client, client async, complex queries |
 | More comparators | Implementation and docs |
 
 ### Roadmap > v2
