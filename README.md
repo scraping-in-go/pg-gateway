@@ -108,6 +108,8 @@ SELECT * FROM users WHERE a=$1 AND c>$2
 | gt | Greater than |
 | lte | Less than or equal to |
 | gte | Greater than or equal to |
+| neq | Not equal to |
+| is | is for true, false |
 
 
 

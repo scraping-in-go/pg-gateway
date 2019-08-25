@@ -120,6 +120,8 @@ func (c *Comparison) ComparatorToSQL() string {
 		return "<"
 	} else if c.Comparator == "gt" {
 		return ">"
+	} else if c.Comparator == "is" {
+		return "is"
 	}
 	return c.Comparator
 }
