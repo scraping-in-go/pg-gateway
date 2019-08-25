@@ -110,6 +110,8 @@ func (c *Comparison) ComparatorToURL() string {
 func (c *Comparison) ComparatorToSQL() string {
 	if c.Comparator == "eq" {
 		return "="
+	} else if c.Comparator == "neq" {
+		return "!="
 	} else if c.Comparator == "gte" {
 		return ">="
 	} else if c.Comparator == "lte" {

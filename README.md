@@ -174,7 +174,6 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 ### Roadmap v2
 | To do | Notes |
 |---|---|
-| Http response codes | Important feature. |
 | More comparators | Implementation and docs |
 | Docs | complex queries, comparators, response code |
 
