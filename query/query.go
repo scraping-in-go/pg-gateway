@@ -42,11 +42,6 @@ func (q *Query) ToUpdateStatement(values map[string]interface{}) (sql string, bi
 		bindArr = append(bindArr, value)
 	}
 	sql, bindArr = generateWhere(q, sql, bindArr)
-
-	if q.Limit != 0 {
-		sql += " LIMIT $" + strconv.Itoa(len(bindArr)+1)
-		bindArr = append(bindArr, strconv.Itoa(q.Limit))
-	}
 	return
 }
 
