@@ -5,6 +5,25 @@ import (
 	"testing"
 )
 
+func TestQuery_ToQuery(t *testing.T) {
+	query := Query{
+		Entity:      "users",
+		Comparisons: []Comparison{},
+	}
+	expected := "SELECT row_to_json($0) as row FROM $1 as tbl"
+	sql, binds := query.ToQuery()
+	if sql != expected {
+		t.Error("bad sql generation, found:")
+		t.Error(sql)
+		t.Error(expected)
+		for _, row := range binds {
+			fmt.Println(row)
+		}
+		return
+	}
+
+}
+
 func TestQuery_ToQuerySimple(t *testing.T) {
 	query := Query{
 		Entity: "users",

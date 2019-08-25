@@ -1,6 +1,7 @@
 package query
 
 import (
+	"fmt"
 	"github.com/sirupsen/logrus"
 	"strconv"
 	"strings"
@@ -38,7 +39,10 @@ func (q *Query) ToQuery() (queryString string, bindArr []string) {
 
 	}
 
-	queryString += " FROM $1 as tbl WHERE "
+	queryString += " FROM $1 as tbl"
+	if len(q.Comparisons) != 0 {
+		queryString += " WHERE "
+	}
 	bindArr = append(bindArr, q.Entity)
 	for id, row := range q.Comparisons {
 		if id > 0 {
@@ -50,6 +54,10 @@ func (q *Query) ToQuery() (queryString string, bindArr []string) {
 	if q.Limit != 0 {
 		queryString += " LIMIT $" + strconv.Itoa(len(bindArr))
 		bindArr = append(bindArr, strconv.Itoa(q.Limit))
+	}
+	fmt.Println(queryString)
+	for _, row := range bindArr {
+		fmt.Println(row)
 	}
 	return
 }
