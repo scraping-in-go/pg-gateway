@@ -67,6 +67,17 @@ is the equivalent of
 SELECT * FROM users limit 10
 ```
 
+
+### Get particular columns for that table
+```shell script
+curl http://localhost:8080/users?select=id,name,email
+```
+is the equivalent of  
+```sql
+SELECT id, name, email FROM users
+```
+
+
 ### Get rows a table where x=y
 ```shell script
 curl http://localhost:8080/users?x=eq.y
@@ -159,7 +170,7 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 |---|---|
 | Complex query async client | Update the client |
 | Http response codes | Important feature. |
-| Docs | get, delete, update, insert, limit, select, client, client async, complex queries |
+| Docs | select, client, client async, complex queries |
 | More comparators | Implementation and docs |
 
 ### Roadmap > v2
