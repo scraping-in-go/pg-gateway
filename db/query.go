@@ -9,7 +9,7 @@ import (
 func GetByQuery(query query.Query) (result chan []byte, err error) {
 	result = make(chan []byte)
 	conn := NextPoolCon()
-	sql, bind := query.ToQuery()
+	sql, bind := query.ToSelectQuery()
 	var rows *pgx.Rows
 	if len(bind) == 0 {
 		rows, err = conn.Query(sql)
