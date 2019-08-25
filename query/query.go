@@ -35,7 +35,8 @@ func (q *Query) ToQuery() (queryString string, bindArr []string) {
 		bindArr = append(bindArr, row.Value)
 	}
 	if q.Limit != 0 {
-		queryString += " LIMIT " + strconv.Itoa(q.Limit)
+		queryString += " LIMIT $" + strconv.Itoa(len(bindArr)+1)
+		bindArr = append(bindArr, strconv.Itoa(q.Limit))
 	}
 	return
 }

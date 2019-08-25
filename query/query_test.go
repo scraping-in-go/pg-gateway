@@ -17,7 +17,7 @@ func TestQuery_ToQuerySimple(t *testing.T) {
 		},
 		Limit: 1000,
 	}
-	expected := "SELECT * FROM users WHERE id=$1 LIMIT 1000"
+	expected := "SELECT * FROM users WHERE id=$1 LIMIT $2"
 	sql, binds := query.ToQuery()
 	if sql != expected {
 		t.Error("bad sql generation, found:")
@@ -48,7 +48,7 @@ func TestQuery_ToQuerySimple2(t *testing.T) {
 		},
 		Limit: 1000,
 	}
-	expected := "SELECT * FROM users WHERE id=$1 AND age>$2 LIMIT 1000"
+	expected := "SELECT * FROM users WHERE id=$1 AND age>$2 LIMIT $3"
 	sql, binds := query.ToQuery()
 	if sql != expected {
 		t.Error("bad sql generation, found:")
