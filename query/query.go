@@ -13,29 +13,42 @@ type Query struct {
 	Limit       int
 }
 
+/*
+select
+   (select row_to_json(_) as row from (select tbl.schemaname, tbl.tablename) as _) as schemaname
+from
+   pg_tables as tbl
+*/
+
 func (q *Query) ToQuery() (queryString string, bindArr []string) {
 	queryString = "SELECT "
 	if len(q.Select) == 0 {
-		queryString += "*"
+		queryString += "row_to_json($0) as row"
+		bindArr = append(bindArr, q.Entity)
 	} else {
-		for id, s := range q.Select {
+		queryString += "(select row_to_json(_) as row from (select tbl."
+		for id, row := range q.Select {
 			if id != 0 {
-				queryString += ", "
+				queryString += ", tbl."
 			}
-			queryString += s
+			queryString += "$" + strconv.Itoa(len(bindArr))
+			bindArr = append(bindArr, row)
 		}
+		queryString += ") as _) as schemaname"
+
 	}
 
-	queryString += " FROM " + q.Entity + " WHERE "
+	queryString += " FROM $1 as tbl WHERE "
+	bindArr = append(bindArr, q.Entity)
 	for id, row := range q.Comparisons {
 		if id > 0 {
 			queryString += " AND "
 		}
-		queryString += row.Field + row.ComparatorToSQL() + "$" + strconv.Itoa(id+1)
+		queryString += row.Field + row.ComparatorToSQL() + "$" + strconv.Itoa(len(bindArr))
 		bindArr = append(bindArr, row.Value)
 	}
 	if q.Limit != 0 {
-		queryString += " LIMIT $" + strconv.Itoa(len(bindArr)+1)
+		queryString += " LIMIT $" + strconv.Itoa(len(bindArr))
 		bindArr = append(bindArr, strconv.Itoa(q.Limit))
 	}
 	return
