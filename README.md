@@ -136,7 +136,6 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 ### Roadmap
 | To do | Notes |
 |---|---|
-| Go client | For calling the library. |
 | Handle options request | Allow calls from browsers &amp; frameworks using OPTIONS. |
 | Http response codes | Important feature. |
 | FastHTTP | Fewer allocs for each request. |
@@ -145,4 +144,5 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 | Pagination | Restricting result sets. |
 | Complex queries | HUGE amount of work. |
 | Deleting (complex) | Requires that complex queries are implemented. |
+| Client docs | Documentation with examples |
 
