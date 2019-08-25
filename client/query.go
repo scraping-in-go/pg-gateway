@@ -7,6 +7,7 @@ import (
 	"net/http"
 )
 
+//GetEntityMany synchronously fetches 0..many rows by a query
 func GetEntityMany(baseURL string, query query.Query) (result []byte, err error) {
 	url := query.ToURL(baseURL)
 	resp, err := http.Get(url)
