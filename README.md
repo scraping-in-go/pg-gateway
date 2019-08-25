@@ -176,6 +176,9 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 ### Roadmap > v2
 | To do | Notes |
 |---|---|
+| Insert | Revisit implementation. |
+| Update | Revisit implementation. |
+| Delete | Revisit implementation. |
 | Security | A strategy that makes sense for the context. |
 | FastHTTP | Fewer allocs for each request. |
 | Bulk inserts | Better insert performance. |
