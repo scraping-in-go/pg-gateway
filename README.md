@@ -111,6 +111,14 @@ SELECT * FROM users WHERE a=$1 AND c>$2
 | neq | Not equal to |
 | is | is for true, false |
 
+### Get with all features!
+```shell script
+curl http://localhost:8080/users?a=eq.b&c=gt.d&select=email&limit=5
+```
+is the equivalent of  
+```sql
+SELECT email FROM users WHERE a=$1 AND c>$2 limit 5
+```
 
 
 
