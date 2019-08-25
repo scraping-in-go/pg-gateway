@@ -23,6 +23,33 @@ type Query struct {
 	Limit       int
 }
 
+func (q *Query) ToSelectQuery() (queryString string, bindArr []interface{}) {
+	queryString = generateSelect(q)
+	queryString += " FROM " + q.Entity + " as tbl"
+	queryString, bindArr = generateWhere(q, queryString, bindArr)
+
+	if q.Limit != 0 {
+		queryString += " LIMIT $" + strconv.Itoa(len(bindArr)+1)
+		bindArr = append(bindArr, strconv.Itoa(q.Limit))
+	}
+	return
+}
+
+func (q *Query) ToUpdateStatement(values map[string]interface{}) (sql string, bindArr []interface{}) {
+	sql = "UPDATE " + q.Entity + " SET "
+	for field, value := range values {
+		sql += field + "=$" + strconv.Itoa(len(bindArr)+1)
+		bindArr = append(bindArr, value)
+	}
+	sql, bindArr = generateWhere(q, sql, bindArr)
+
+	if q.Limit != 0 {
+		sql += " LIMIT $" + strconv.Itoa(len(bindArr)+1)
+		bindArr = append(bindArr, strconv.Itoa(q.Limit))
+	}
+	return
+}
+
 func (q *Query) ToURL(baseURL string) string {
 	url := baseURL + "/" + q.Entity
 	changed := 0
@@ -59,7 +86,7 @@ func (q *Query) ToURL(baseURL string) string {
 
 }
 
-func (q *Query) ToQuery() (queryString string, bindArr []interface{}) {
+func generateSelect(q *Query) (queryString string) {
 	queryString = "SELECT "
 	if len(q.Select) == 0 {
 		queryString += "row_to_json(" + "tbl" + ") as row"
@@ -72,10 +99,11 @@ func (q *Query) ToQuery() (queryString string, bindArr []interface{}) {
 			queryString += row
 		}
 		queryString += ") as _) as schemaname"
-
 	}
+	return
+}
 
-	queryString += " FROM " + q.Entity + " as tbl"
+func generateWhere(q *Query, queryString string, bindArrIn []interface{}) (string, []interface{}) {
 	if len(q.Comparisons) != 0 {
 		queryString += " WHERE "
 	}
@@ -83,14 +111,10 @@ func (q *Query) ToQuery() (queryString string, bindArr []interface{}) {
 		if id > 0 {
 			queryString += " AND "
 		}
-		queryString += row.Field + row.ComparatorToSQL() + "$" + strconv.Itoa(len(bindArr)+1)
-		bindArr = append(bindArr, row.Value)
+		queryString += row.Field + row.ComparatorToSQL() + "$" + strconv.Itoa(len(bindArrIn)+1)
+		bindArrIn = append(bindArrIn, row.Value)
 	}
-	if q.Limit != 0 {
-		queryString += " LIMIT $" + strconv.Itoa(len(bindArr)+1)
-		bindArr = append(bindArr, strconv.Itoa(q.Limit))
-	}
-	return
+	return queryString, bindArrIn
 }
 
 func (q *Query) processOtherQuery(field, value string) {

@@ -139,7 +139,7 @@ func TestQuery_ToQuery(t *testing.T) {
 		Comparisons: []Comparison{},
 	}
 	expected := "SELECT row_to_json(tbl) as row FROM users as tbl"
-	sql, binds := query.ToQuery()
+	sql, binds := query.ToSelectQuery()
 	if sql != expected {
 		t.Error("bad sql generation, found:")
 		t.Error(sql)
@@ -169,7 +169,7 @@ func TestQuery_ToQuerySimple(t *testing.T) {
 		Limit: 1000,
 	}
 	expected := "SELECT row_to_json(tbl) as row FROM users as tbl WHERE id=$1 LIMIT $2"
-	sql, binds := query.ToQuery()
+	sql, binds := query.ToSelectQuery()
 	if sql != expected {
 		t.Error("bad sql generation, found:")
 		t.Error(sql)
@@ -200,7 +200,7 @@ func TestQuery_ToQuerySimple2(t *testing.T) {
 		Limit: 1000,
 	}
 	expected := "SELECT row_to_json(tbl) as row FROM users as tbl WHERE id=$1 AND age>=$2 LIMIT $3"
-	sql, binds := query.ToQuery()
+	sql, binds := query.ToSelectQuery()
 	if sql != expected {
 		t.Error("bad sql generation, found:")
 		t.Error(sql)
@@ -225,7 +225,7 @@ func TestQuery_ToQuerySimpler(t *testing.T) {
 		},
 	}
 	expected := "SELECT row_to_json(tbl) as row FROM users as tbl WHERE id=$1"
-	sql, binds := query.ToQuery()
+	sql, binds := query.ToSelectQuery()
 	if sql != expected {
 		t.Error("bad sql generation, found:")
 		t.Error(sql)
@@ -254,7 +254,43 @@ func TestQuery_ToQuerySelectTwoFields(t *testing.T) {
 		},
 	}
 	expected := "SELECT (select row_to_json(_) as row from (select tbl.id, tbl.name) as _) as schemaname FROM users as tbl WHERE id=$1"
-	sql, binds := query.ToQuery()
+	sql, binds := query.ToSelectQuery()
+	if sql != expected {
+		t.Error("bad sql generation, found:")
+		t.Error(sql)
+		t.Error(expected)
+		for _, row := range binds {
+			fmt.Println(row)
+		}
+		return
+	}
+
+}
+
+func TestQuery_ToUpdateStatement(t *testing.T) {
+	query := Query{
+		Entity: "users",
+		Comparisons: []Comparison{
+			{
+				Field:      "id",
+				Comparator: "eq",
+				Value:      "100",
+			},
+			{
+				Field:      "age",
+				Comparator: "gt",
+				Value:      "50",
+			},
+		},
+	}
+
+	var values map[string]interface{} = map[string]interface{}{
+		"name": "Justin2",
+	}
+
+	sql, binds := query.ToUpdateStatement(values)
+
+	expected := "UPDATE users SET name=$1 WHERE id=$2 AND age>$3"
 	if sql != expected {
 		t.Error("bad sql generation, found:")
 		t.Error(sql)
