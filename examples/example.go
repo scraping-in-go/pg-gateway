@@ -5,14 +5,18 @@ import (
 	"github.com/google/uuid"
 	"github.com/just1689/pg-gateway/client"
 	"github.com/just1689/pg-gateway/query"
+	"time"
 )
 
 var svr = "http://localhost:8080"
 
 func main() {
+	start := time.Now()
 	//testInsert()
-	//testReadAsync()
-	testRead()
+	testReadAsync()
+	//testRead()
+
+	fmt.Println(time.Since(start))
 }
 
 var userEntities = "users"
@@ -42,9 +46,15 @@ func testInsert() {
 
 func testReadAsync() {
 	c, err := client.GetEntityManyAsync(svr, query.Query{
-		Entity:      userEntities,
-		Comparisons: []query.Comparison{},
-		Limit:       5,
+		Entity: userEntities,
+		Comparisons: []query.Comparison{
+			query.Comparison{
+				Field:      "email",
+				Comparator: "eq",
+				Value:      "8d837a60-9e69-46c8-a5d6-6e2313f5d29e",
+			},
+		},
+		Limit: 1,
 	})
 	if err != nil {
 		panic(err)

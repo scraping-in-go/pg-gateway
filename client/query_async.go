@@ -16,7 +16,6 @@ func GetEntityManyAsync(baseURL string, query query.Query) (results chan []byte,
 		resp.Body.Close()
 		return
 	}
-	defer resp.Body.Close()
 
 	results = make(chan []byte)
 	go closerToChan(resp.Body, results)
