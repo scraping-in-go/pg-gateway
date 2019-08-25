@@ -141,8 +141,7 @@ is the equivalent of `update entities set entity=$1, id=$2, v=$3 where id=$4`
 ```shell script
 curl -X DELETE http://localhost:8080/users/id/12
 ```
-is the equivalent of  
-`DELETE FROM entities WHERE id=12`
+is the equivalent of `DELETE FROM entities WHERE id=12`
 
 
 ## Client
