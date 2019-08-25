@@ -136,8 +136,7 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 ### Roadmap v2
 | To do | Notes |
 |---|---|
-| Complex query execution | Query builder is done, now need to execute them |
-| Compelex query client | Update the client |
+| Complex query client | Update the client |
 | Handle options request | Allow calls from browsers &amp; frameworks using OPTIONS. |
 | Http response codes | Important feature. |
 | Client docs | Documentation with examples |
@@ -145,6 +144,7 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 | Select docs | Documentation with examples |
 | Limit docs | Documentation with examples |
 | Complex query docs | Documentation with examples |
+| More comparators | Implementation and docs |
 
 ### Roadmap > v2
 | To do | Notes |

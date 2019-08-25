@@ -15,8 +15,7 @@ var RB = []byte("]")
 var COMMA = []byte(",")
 
 func HandleOptions(w http.ResponseWriter, r *http.Request) {
-	//TODO: methods
-	//TODO: content type
+	w.Header().Set("Access-Control-Allow-Methods", "GET, PATCH, DELETE, POST, OPTIONS")
 }
 
 func HandlePatch(w http.ResponseWriter, r *http.Request) {
