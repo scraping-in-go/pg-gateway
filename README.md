@@ -1,5 +1,5 @@
 # PG Gateway
-<a href="https://github.com/just1689/pg-gateway/releases"><img src="https://img.shields.io/badge/version-1.1-blue" /></a>&nbsp;<a href="https://goreportcard.com/report/github.com/just1689/pg-gateway"><img src="https://goreportcard.com/badge/github.com/just1689/pg-gateway" /></a><br />
+<a href="https://github.com/just1689/pg-gateway/releases"><img src="https://img.shields.io/badge/version-1.2-blue" /></a>&nbsp;<a href="https://goreportcard.com/report/github.com/just1689/pg-gateway"><img src="https://goreportcard.com/badge/github.com/just1689/pg-gateway"></a><br />
 
 <img align="right" height="200" src="docs/pg2.png" />
 
