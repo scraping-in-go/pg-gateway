@@ -17,7 +17,7 @@ func GetEntityAllAsync(svr string, entity string) (results chan []byte, err erro
 	}
 
 	results = make(chan []byte)
-	go ioReadCloserToByteChanByJsonElement(resp.Body, results)
+	go closerToChan(resp.Body, results)
 	return
 
 }
@@ -33,12 +33,12 @@ func GetEntityManyAsync(svr string, entity, field, id string) (results chan []by
 	defer resp.Body.Close()
 
 	results = make(chan []byte)
-	go ioReadCloserToByteChanByJsonElement(resp.Body, results)
+	go closerToChan(resp.Body, results)
 	return
 
 }
 
-func ioReadCloserToByteChanByJsonElement(body io.ReadCloser, results chan []byte) {
+func closerToChan(body io.ReadCloser, results chan []byte) {
 	defer body.Close()
 	ri := j2c.NewReaderItemFromReadCloser(body)
 	in := j2c.BuildInterpreter(ri)
