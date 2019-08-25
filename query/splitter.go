@@ -1,35 +1,11 @@
 package query
 
 import (
-	"github.com/sirupsen/logrus"
-	"strconv"
 	"strings"
 )
 
-type Query struct {
-	Entity      string
-	Comparisons []Comparison
-	Limit       int
-}
-
-func (q *Query) processOtherQuery(field, value string) {
-	if field == "limit" {
-		i, _ := strconv.Atoi(value)
-		q.Limit = i
-		return
-	}
-	logrus.Fatal("not sure how to handle", field, value, "for processOtherQuery")
-
-}
-
-type Comparison struct {
-	Field      string
-	Comparator string
-	Value      string
-}
-
 func BuildQueryFromURL(u string) (result Query) {
-	split := SplitURL(u)
+	split := splitFullURL(u)
 	result = Query{
 		Entity:      split[0],
 		Comparisons: []Comparison{},

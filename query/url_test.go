@@ -7,7 +7,7 @@ import (
 
 func TestBreakUrlEmpty(t *testing.T) {
 	url := "users"
-	all := SplitURL(url)
+	all := splitFullURL(url)
 	if len(all) != 1 {
 		t.Error("Expected 1 not", len(all))
 		return
@@ -17,7 +17,7 @@ func TestBreakUrlEmpty(t *testing.T) {
 
 func TestBreakUrlSmall(t *testing.T) {
 	url := "users?id=eq.1"
-	all := SplitURL(url)
+	all := splitFullURL(url)
 	if len(all) != 2 {
 		t.Error("Expected 2 not", len(all))
 		printArr(all)
@@ -28,7 +28,7 @@ func TestBreakUrlSmall(t *testing.T) {
 
 func TestBreakUrlThree(t *testing.T) {
 	url := "users?id=eq.1&name=eq.Justin&age=gte.100"
-	all := SplitURL(url)
+	all := splitFullURL(url)
 	if len(all) != 4 {
 		t.Error("Expected 4 not", len(all))
 		return
@@ -38,7 +38,7 @@ func TestBreakUrlThree(t *testing.T) {
 
 func TestBreakUrlExplicitly(t *testing.T) {
 	url := "users?id=eq.1&name=eq.Justin&age=gte.100"
-	all := SplitURL(url)
+	all := splitFullURL(url)
 	if all[0] != "users" {
 		t.Error("Unexpected", all[0])
 		printArr(all)

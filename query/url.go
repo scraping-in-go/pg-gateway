@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-func SplitURL(url string) []string {
+func splitFullURL(url string) []string {
 	result := strings.Split(url, "?")
 	if len(result) == 1 {
 		return result
