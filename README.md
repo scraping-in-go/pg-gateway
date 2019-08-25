@@ -53,47 +53,38 @@ ALTER USER postgres SET search_path to myschema
 For the examples below, we'll assume the application is hosted on localhost:8080
 
 ### Get all rows for that table
-`curl http://localhost:8080/users` is the equivalent of
-  
-```sql
-SELECT * FROM users
+```shell script
+curl http://localhost:8080/users
 ```
+is the equivalent of `SELECT * FROM users`
 
 ### Get n rows for that table
 ```shell script
 curl http://localhost:8080/users?limit=10
 ```
-is the equivalent of  
-```sql
-SELECT * FROM users limit 10
-```
+is the equivalent of `SELECT * FROM users limit 10`
 
 
 ### Get particular columns for that table
-`curl http://localhost:8080/users?select=id,name,email` is the equivalent of
-  
-```sql
-SELECT id, name, email FROM users
+```shell script
+curl http://localhost:8080/users?select=id,name,email
 ```
+is the equivalent of `SELECT id, name, email FROM users`
 
 
 ### Get rows a table where x=y
 ```shell script
 curl http://localhost:8080/users?x=eq.y
 ```
-is the equivalent of  
-```sql
-SELECT * FROM users WHERE x=$1
-```
+is the equivalent of `SELECT * FROM users WHERE x=$1`
 
 
 
 ### Get rows where a=b and c>d
-`curl http://localhost:8080/users?a=eq.b&c=gt.d` is the equivalent of
-  
-```sql
-SELECT * FROM users WHERE a=$1 AND c>$2
+```shell script
+curl http://localhost:8080/users?a=eq.b&c=gt.d
 ```
+is the equivalent of `SELECT * FROM users WHERE a=$1 AND c>$2`
 
 ### Supported Comparisons
 | Comparator | Explanation |
@@ -107,11 +98,10 @@ SELECT * FROM users WHERE a=$1 AND c>$2
 | is | is for true, false |
 
 ### Get with all features!
-`curl http://localhost:8080/users?a=eq.b&c=gt.d&select=email&limit=5` is the equivalent of
-  
-```sql
-SELECT email FROM users WHERE a=$1 AND c>$2 limit 5
+```shell script
+curl http://localhost:8080/users?a=eq.b&c=gt.d&select=email&limit=5
 ```
+is the equivalent of `SELECT email FROM users WHERE a=$1 AND c>$2 limit 5`
 
 
 
@@ -128,10 +118,7 @@ curl -X POST \
 	"name": "Justin"
 }'
 ```
-is the equivalent of  
-```sql
-INSERT INTO entities (entity, id, name) VALUES ("user", "12", "Justin")
-```
+is the equivalent of `INSERT INTO entities (entity, id, name) VALUES ("user", "12", "Justin")`
 
 
 
@@ -146,19 +133,16 @@ curl -X PATCH http://localhost:8080/users/id/12
 	"name": "Justin"
 }'
 ```
-is the equivalent of  
-```sql
-update entities set entity=$1, id=$2, v=$3 where id=$4
-```
+is the equivalent of `update entities set entity=$1, id=$2, v=$3 where id=$4`
 
 
 
 ### Delete rows where field=value
-`curl -X DELETE http://localhost:8080/users/id/12` is the equivalent of
-  
-```sql
-DELETE FROM entities WHERE id=12
+```shell script
+curl -X DELETE http://localhost:8080/users/id/12
 ```
+is the equivalent of  
+`DELETE FROM entities WHERE id=12`
 
 
 ## Client
