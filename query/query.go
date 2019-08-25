@@ -7,12 +7,25 @@ import (
 
 type Query struct {
 	Entity      string
+	Select      []string
 	Comparisons []Comparison
 	Limit       int
 }
 
 func (q *Query) ToQuery() (queryString string, bindArr []string) {
-	queryString = "SELECT * FROM " + q.Entity + " WHERE "
+	queryString = "SELECT "
+	if len(q.Select) == 0 {
+		queryString += "*"
+	} else {
+		for id, s := range q.Select {
+			if id != 0 {
+				queryString += ", "
+			}
+			queryString += s
+		}
+	}
+
+	queryString += " FROM " + q.Entity + " WHERE "
 	for id, row := range q.Comparisons {
 		if id > 0 {
 			queryString += " AND "

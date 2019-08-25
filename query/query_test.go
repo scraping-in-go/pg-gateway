@@ -86,3 +86,32 @@ func TestQuery_ToQuerySimpler(t *testing.T) {
 	}
 
 }
+
+func TestQuery_ToQuerySelectTwoFields(t *testing.T) {
+	query := Query{
+		Entity: "users",
+		Select: []string{
+			"id",
+			"name",
+		},
+		Comparisons: []Comparison{
+			{
+				Field:      "id",
+				Comparator: "eq",
+				Value:      "100",
+			},
+		},
+	}
+	expected := "SELECT id, name FROM users WHERE id=$1"
+	sql, binds := query.ToQuery()
+	if sql != expected {
+		t.Error("bad sql generation, found:")
+		t.Error(sql)
+		t.Error(expected)
+		for _, row := range binds {
+			fmt.Println(row)
+		}
+		return
+	}
+
+}
