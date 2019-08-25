@@ -1,5 +1,5 @@
 # PG Gateway
-<a href="https://github.com/just1689/pg-gateway/releases"><img src="https://img.shields.io/badge/version-1.2-blue" /></a>&nbsp;<a href="https://goreportcard.com/report/github.com/just1689/pg-gateway"><img src="https://goreportcard.com/badge/github.com/just1689/pg-gateway"></a>&nbsp;<a href="https://codebeat.co/projects/github-com-just1689-pg-gateway-master"><img alt="codebeat badge" src="https://codebeat.co/badges/41278d9d-5877-4f6b-8638-9eec74b9aeba" /></a>
+<a href="https://github.com/just1689/pg-gateway/releases"><img src="https://img.shields.io/badge/version-1.2-blue" /></a>&nbsp;<a href="https://goreportcard.com/report/github.com/just1689/pg-gateway"><img src="https://goreportcard.com/badge/github.com/just1689/pg-gateway"></a>&nbsp;<a href="https://codebeat.co/projects/github-com-just1689-pg-gateway-master"><img alt="codebeat badge" src="https://codebeat.co/badges/41278d9d-5877-4f6b-8638-9eec74b9aeba" /></a>&nbsp;<a href="https://codeclimate.com/github/just1689/pg-gateway/maintainability"><img src="https://api.codeclimate.com/v1/badges/28264ac4d5c087d43928/maintainability" /></a>
 
 <br />
 
