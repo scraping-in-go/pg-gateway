@@ -15,7 +15,6 @@ func main() {
 	//testInsert()
 	testReadAsync()
 	//testRead()
-
 	fmt.Println(time.Since(start))
 }
 
@@ -50,11 +49,11 @@ func testReadAsync() {
 		Comparisons: []query.Comparison{
 			query.Comparison{
 				Field:      "email",
-				Comparator: "eq",
-				Value:      "8d837a60-9e69-46c8-a5d6-6e2313f5d29e",
+				Comparator: "gt",
+				Value:      "8",
 			},
 		},
-		Limit: 1,
+		Limit: 5000,
 	})
 	if err != nil {
 		panic(err)
