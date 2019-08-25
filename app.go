@@ -17,7 +17,7 @@ func main() {
 
 	checkEnvironmentVars()
 	logrus.Println("Starting DB pool of size", poolSize)
-	db.NextPoolCon = db.StartPool(poolSize)
+	db.NextPoolCon = db.StartConnCache(poolSize)
 
 	router := mux.NewRouter()
 	router.HandleFunc("/", web.HandleOptions).Methods(http.MethodOptions)

@@ -13,7 +13,8 @@ var DatabasePassword = os.Getenv("pgpassword")
 var DatabaseDatabase = os.Getenv("pgdb")
 var DatabasePort = env.GetInt("pgport")
 
-func Connect() (conn *pgx.Conn, err error) {
+func ConnectOrDie() (conn *pgx.Conn) {
+	var err error
 	conn, err = pgx.Connect(pgx.ConnConfig{
 		Host:     DatabaseHost,
 		Port:     uint16(DatabasePort),
