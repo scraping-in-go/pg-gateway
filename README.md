@@ -145,4 +145,5 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 | Complex queries | HUGE amount of work. |
 | Deleting (complex) | Requires that complex queries are implemented. |
 | Client docs | Documentation with examples |
+| Async docs | Documentation with examples |
 
