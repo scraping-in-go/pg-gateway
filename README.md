@@ -136,13 +136,14 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 ### Roadmap v2
 | To do | Notes |
 |---|---|
+| Complex query execution | Query builder is done, now need to execute them |
 | Handle options request | Allow calls from browsers &amp; frameworks using OPTIONS. |
 | Http response codes | Important feature. |
-| Complex queries | HUGE amount of work. |
 | Client docs | Documentation with examples |
 | Async docs | Documentation with examples |
 | Select docs | Documentation with examples |
 | Limit docs | Documentation with examples |
+| Complex query docs | Documentation with examples |
 
 ### Roadmap > v2
 | To do | Notes |
