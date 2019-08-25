@@ -10,7 +10,7 @@ type connCache chan *pgx.Conn
 
 func (c connCache) populate() {
 	for {
-		c <- ConnectOrDie()
+		c <- connectOrDie()
 	}
 }
 
