@@ -1,6 +1,8 @@
 package client
 
 import (
+	"fmt"
+	"github.com/bcicen/jstream"
 	"github.com/just1689/json2channel/j2c"
 	"github.com/just1689/pg-gateway/query"
 	"github.com/sirupsen/logrus"
@@ -22,6 +24,13 @@ func GetEntityManyAsync(baseURL string, query query.Query) (results chan []byte,
 	go closerToChan(resp.Body, results)
 	return
 
+}
+
+func closerToChan2(body io.ReadCloser, results chan []byte) {
+	decoder := jstream.NewDecoder(body, 1) // extract JSON values at a depth level of 1
+	for mv := range decoder.Stream() {
+		fmt.Printf("%v\n ", mv.Value)
+	}
 }
 
 func closerToChan(body io.ReadCloser, results chan []byte) {
