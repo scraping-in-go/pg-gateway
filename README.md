@@ -78,7 +78,7 @@ SELECT * FROM users WHERE x=$1
 
 
 
-### Get row where a=b and c>d
+### Get rows where a=b and c>d
 ```shell script
 curl http://localhost:8080/users?a=eq.b&c=gt.d
 ```
