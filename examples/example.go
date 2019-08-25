@@ -8,23 +8,19 @@ import (
 
 var svr = "http://localhost:8080"
 
+func main() {
+	testInsert()
+	testReadAsync()
+}
+
+var userEntities = "users"
+
 type user struct {
 	ID        string `json:"id"`
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
 	Password  string `json:"password"`
-}
-
-func main() {
-	//testInsert()
-	c, err := client.GetEntityAllAsync(svr, "users")
-	if err != nil {
-		panic(err)
-	}
-	for r := range c {
-		fmt.Println(string(r))
-	}
 }
 
 func testInsert() {
@@ -36,11 +32,21 @@ func testInsert() {
 			Email:     uuid.New().String(),
 			Password:  "some_hash",
 		}
-		err := client.Insert(svr, "users", u)
-		if err != nil {
+		if err := client.Insert(svr, userEntities, u); err != nil {
 			panic(err)
 		}
+	}
+}
 
+func testReadAsync() {
+	c, err := client.GetEntityAllAsync(svr, "users")
+	if err != nil {
+		panic(err)
+	}
+	count := 0
+	for r := range c {
+		count++
+		fmt.Println(count, string(r))
 	}
 
 }
