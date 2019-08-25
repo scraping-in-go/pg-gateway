@@ -53,10 +53,8 @@ ALTER USER postgres SET search_path to myschema
 For the examples below, we'll assume the application is hosted on localhost:8080
 
 ### Get all rows for that table
-```shell script
-curl http://localhost:8080/users
-```
-is the equivalent of  
+`curl http://localhost:8080/users` is the equivalent of
+  
 ```sql
 SELECT * FROM users
 ```
@@ -72,10 +70,8 @@ SELECT * FROM users limit 10
 
 
 ### Get particular columns for that table
-```shell script
-curl http://localhost:8080/users?select=id,name,email
-```
-is the equivalent of  
+`curl http://localhost:8080/users?select=id,name,email` is the equivalent of
+  
 ```sql
 SELECT id, name, email FROM users
 ```
@@ -93,10 +89,8 @@ SELECT * FROM users WHERE x=$1
 
 
 ### Get rows where a=b and c>d
-```shell script
-curl http://localhost:8080/users?a=eq.b&c=gt.d
-```
-is the equivalent of  
+`curl http://localhost:8080/users?a=eq.b&c=gt.d` is the equivalent of
+  
 ```sql
 SELECT * FROM users WHERE a=$1 AND c>$2
 ```
@@ -113,10 +107,8 @@ SELECT * FROM users WHERE a=$1 AND c>$2
 | is | is for true, false |
 
 ### Get with all features!
-```shell script
-curl http://localhost:8080/users?a=eq.b&c=gt.d&select=email&limit=5
-```
-is the equivalent of  
+`curl http://localhost:8080/users?a=eq.b&c=gt.d&select=email&limit=5` is the equivalent of
+  
 ```sql
 SELECT email FROM users WHERE a=$1 AND c>$2 limit 5
 ```
@@ -162,10 +154,8 @@ update entities set entity=$1, id=$2, v=$3 where id=$4
 
 
 ### Delete rows where field=value
-```shell script
-curl -X DELETE http://localhost:8080/users/id/12
-```
-is the equivalent of  
+`curl -X DELETE http://localhost:8080/users/id/12` is the equivalent of
+  
 ```sql
 DELETE FROM entities WHERE id=12
 ```
