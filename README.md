@@ -174,8 +174,9 @@ DELETE FROM entities WHERE id=12
 ## Client
 
 See the /client directory for the client.
+Examples of usage can be found in /examples.
 
-Examples of usage can be found in /examples
+
 
 
 ### Memory Usage
