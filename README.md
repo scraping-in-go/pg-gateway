@@ -173,13 +173,8 @@ Examples of usage can be found in /examples
 Memory usage after 1 million requests at a concurrency of 100 requests. 
 <img src="docs/memory3.png" />
 
-### Roadmap v2
-| To do | Notes |
-|---|---|
-| More comparators | Implementation and docs |
-| Docs | complex queries, comparators, response code |
 
-### Roadmap > v2
+### Roadmap
 | To do | Notes |
 |---|---|
 | Insert | Revisit implementation. |
