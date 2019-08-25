@@ -147,7 +147,7 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 ### Roadmap > v2
 | To do | Notes |
 |---|---|
-| Security | Come up with a strategy that makes sense for the context. |
+| Security | A strategy that makes sense for the context. |
 | FastHTTP | Fewer allocs for each request. |
 | Bulk inserts | Better insert performance. |
 | Docker Service | Simple script to spin up db and service. |
