@@ -180,7 +180,7 @@ Examples of usage can be found in /examples.
 
 
 ### Memory Usage
-Memory usage after 1 million requests at a concurrency of 100 requests. 
+Memory usage after 1 million requests (concurrency of 100 connections). 
 <img src="docs/memory3.png" />
 
 
