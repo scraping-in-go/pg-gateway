@@ -30,7 +30,7 @@ func Insert(svr string, entity string, i interface{}) (err error) {
 }
 
 func Update(svr string, entity, field, id string, i interface{}) (err error) {
-	url := svr + "/" + entity
+	url := svr + "/" + entity + "/" + field + "/" + id
 	b, err := json.Marshal(i)
 	if err != nil {
 		logrus.Error(err)
