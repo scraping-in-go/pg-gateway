@@ -32,6 +32,7 @@ func (q *Query) ToQuery() (queryString string, bindArr []string) {
 			queryString += " AND "
 		}
 		queryString += row.Field + row.ComparatorToSQL() + "$" + strconv.Itoa(id+1)
+		bindArr = append(bindArr, row.Value)
 	}
 	if q.Limit != 0 {
 		queryString += " LIMIT " + strconv.Itoa(q.Limit)
