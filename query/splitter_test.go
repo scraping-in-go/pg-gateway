@@ -3,7 +3,7 @@ package query
 import "testing"
 
 func TestBuildQueryFromURLForSimpleQuery(t *testing.T) {
-	url := "/people?age=eq.25"
+	url := "people?age=eq.25"
 	query := BuildQueryFromURL(url)
 	if query.Entity != "people" {
 		t.Log("Got", query.Entity, "and not", "people")
@@ -30,7 +30,7 @@ func TestBuildQueryFromURLForSimpleQuery(t *testing.T) {
 }
 
 func TestBuildQueryFromURLForMultiQuery(t *testing.T) {
-	url := "/people?age=gte.25&active=is.true"
+	url := "people?age=gte.25&active=is.true"
 	query := BuildQueryFromURL(url)
 	if query.Entity != "people" {
 		t.Log("Got", query.Entity, "and not", "people")
@@ -70,7 +70,7 @@ func TestBuildQueryFromURLForMultiQuery(t *testing.T) {
 }
 
 func TestBuildQueryFromURLForMultiQuery3(t *testing.T) {
-	url := "/people?age=gte.25&active=is.true&name=eq.Justin"
+	url := "people?age=gte.25&active=is.true&name=eq.Justin"
 	query := BuildQueryFromURL(url)
 	if query.Entity != "people" {
 		t.Log("Got", query.Entity, "and not", "people")
