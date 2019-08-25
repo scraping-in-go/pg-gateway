@@ -172,8 +172,8 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 |---|---|
 | Complex query async client | Update the client |
 | Http response codes | Important feature. |
-| Docs | client, client async, complex queries |
 | More comparators | Implementation and docs |
+| Docs | client, client async, complex queries, comparators, response code |
 
 ### Roadmap > v2
 | To do | Notes |
