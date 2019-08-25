@@ -14,7 +14,9 @@ Currently, the application supports the following database interactions
 - delete where field=value,
 - get whole table, 
 - get row by id, 
-- get rows where field=value.
+- get with multiple field{comparison}value
+- get but limit results
+- get but select columns
 
 Other features
 - For multi-row returns, the application writes rows back to the client as each row is read.
