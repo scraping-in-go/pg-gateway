@@ -30,6 +30,7 @@ func GetEntityManyAsync(svr string, entity, field, id string) (results chan []by
 		resp.Body.Close()
 		return
 	}
+	defer resp.Body.Close()
 
 	results = make(chan []byte)
 	go ioReadCloserToByteChanByJsonElement(resp.Body, results)
