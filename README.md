@@ -133,17 +133,21 @@ SELECT * FROM users WHERE id=z
 Memory usage after 1 million requests at a concurrency of 100 requests. 
 <img src="docs/memory3.png" />
 
-### Roadmap
+### Roadmap v2
 | To do | Notes |
 |---|---|
 | Handle options request | Allow calls from browsers &amp; frameworks using OPTIONS. |
 | Http response codes | Important feature. |
+| Complex queries | HUGE amount of work. |
+| Client docs | Documentation with examples |
+| Async docs | Documentation with examples |
+
+### Roadmap > v2
+| To do | Notes |
+|---|---|
+| Security | Come up with a strategy that makes sense for the context. |
 | FastHTTP | Fewer allocs for each request. |
 | Bulk inserts | Better insert performance. |
 | Docker Service | Simple script to spin up db and service. |
 | Pagination | Restricting result sets. |
-| Complex queries | HUGE amount of work. |
-| Deleting (complex) | Requires that complex queries are implemented. |
-| Client docs | Documentation with examples |
-| Async docs | Documentation with examples |
 
