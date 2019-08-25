@@ -20,6 +20,7 @@ func main() {
 	db.NextPoolCon = db.StartPool(poolSize)
 
 	router := mux.NewRouter()
+	router.HandleFunc("/", web.HandleOptions).Methods(http.MethodOptions)
 	router.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) { w.WriteHeader(http.StatusOK) })
 	router.HandleFunc("/{entity}", web.HandleGetAll).Methods(http.MethodGet)
 	router.HandleFunc("/{entity}/{id}", web.HandleGet).Methods(http.MethodGet)

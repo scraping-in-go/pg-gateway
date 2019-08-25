@@ -13,6 +13,11 @@ var LB = []byte("[")
 var RB = []byte("]")
 var COMMA = []byte(",")
 
+func HandleOptions(w http.ResponseWriter, r *http.Request) {
+	//TODO: methods
+	//TODO: content type
+}
+
 func HandleGetAll(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	entity := vars["entity"]
