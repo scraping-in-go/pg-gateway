@@ -137,7 +137,6 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 | To do | Notes |
 |---|---|
 | Complex query client | Update the client |
-| Handle options request | Allow calls from browsers &amp; frameworks using OPTIONS. |
 | Http response codes | Important feature. |
 | Client docs | Documentation with examples |
 | Async docs | Documentation with examples |
