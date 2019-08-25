@@ -141,6 +141,7 @@ Memory usage after 1 million requests at a concurrency of 100 requests.
 | Complex queries | HUGE amount of work. |
 | Client docs | Documentation with examples |
 | Async docs | Documentation with examples |
+| select docs | Documentation with examples |
 
 ### Roadmap > v2
 | To do | Notes |
