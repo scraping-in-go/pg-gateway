@@ -4,7 +4,7 @@
 
 <img align="right" height="240" src="docs/pg2.png" />
 
-This project aims to make it simple and fast to interact with a Postgresql database over http inspired by <a href="https://github.com/PostgREST/postgrest">Postgrest</a>.
+This project aims to make easy to interact with a Postgresql database over http inspired by <a href="https://github.com/PostgREST/postgrest">Postgrest</a>.
 
 
 ## Features
