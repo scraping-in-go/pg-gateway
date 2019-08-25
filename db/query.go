@@ -10,10 +10,19 @@ func GetByQuery(query query.Query) (result chan []byte, err error) {
 	result = make(chan []byte)
 	conn := NextPoolCon()
 	sql, bind := query.ToQuery()
-	rows, err := conn.Query(sql, bind)
+	var rows *pgx.Rows
+	if len(bind) == 0 {
+		rows, err = conn.Query(sql)
+	} else {
+		rows, err = conn.Query(sql, bind...)
+	}
 	if err != nil {
 		logrus.Errorln(err)
 		logrus.Errorln(sql)
+		logrus.Errorln(len(bind))
+		for _, bs := range bind {
+			logrus.Errorln(bs)
+		}
 		conn.Close()
 		return
 	}

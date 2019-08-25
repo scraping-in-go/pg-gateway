@@ -10,7 +10,7 @@ func TestQuery_ToQuery(t *testing.T) {
 		Entity:      "users",
 		Comparisons: []Comparison{},
 	}
-	expected := "SELECT row_to_json($0) as row FROM $1 as tbl"
+	expected := "SELECT row_to_json(tbl) as row FROM users as tbl"
 	sql, binds := query.ToQuery()
 	if sql != expected {
 		t.Error("bad sql generation, found:")
@@ -20,6 +20,10 @@ func TestQuery_ToQuery(t *testing.T) {
 			fmt.Println(row)
 		}
 		return
+	}
+
+	if len(binds) != 0 {
+		t.Error("too many bind vars. expected 0, got", len(binds))
 	}
 
 }
@@ -36,7 +40,7 @@ func TestQuery_ToQuerySimple(t *testing.T) {
 		},
 		Limit: 1000,
 	}
-	expected := "SELECT row_to_json($0) as row FROM $1 as tbl WHERE id=$2 LIMIT $3"
+	expected := "SELECT row_to_json(tbl) as row FROM users as tbl WHERE id=$1 LIMIT $2"
 	sql, binds := query.ToQuery()
 	if sql != expected {
 		t.Error("bad sql generation, found:")
@@ -67,7 +71,7 @@ func TestQuery_ToQuerySimple2(t *testing.T) {
 		},
 		Limit: 1000,
 	}
-	expected := "SELECT row_to_json($0) as row FROM $1 as tbl WHERE id=$2 AND age>$3 LIMIT $4"
+	expected := "SELECT row_to_json(tbl) as row FROM users as tbl WHERE id=$1 AND age>=$2 LIMIT $3"
 	sql, binds := query.ToQuery()
 	if sql != expected {
 		t.Error("bad sql generation, found:")
@@ -92,7 +96,7 @@ func TestQuery_ToQuerySimpler(t *testing.T) {
 			},
 		},
 	}
-	expected := "SELECT row_to_json($0) as row FROM $1 as tbl WHERE id=$2"
+	expected := "SELECT row_to_json(tbl) as row FROM users as tbl WHERE id=$1"
 	sql, binds := query.ToQuery()
 	if sql != expected {
 		t.Error("bad sql generation, found:")
@@ -121,7 +125,7 @@ func TestQuery_ToQuerySelectTwoFields(t *testing.T) {
 			},
 		},
 	}
-	expected := "SELECT (select row_to_json(_) as row from (select tbl.$0, tbl.$1) as _) as schemaname FROM $1 as tbl WHERE id=$3"
+	expected := "SELECT (select row_to_json(_) as row from (select tbl.id, tbl.name) as _) as schemaname FROM users as tbl WHERE id=$1"
 	sql, binds := query.ToQuery()
 	if sql != expected {
 		t.Error("bad sql generation, found:")
