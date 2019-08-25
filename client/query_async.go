@@ -2,28 +2,14 @@ package client
 
 import (
 	"github.com/just1689/json2channel/j2c"
+	"github.com/just1689/pg-gateway/query"
 	"github.com/sirupsen/logrus"
 	"io"
 	"net/http"
 )
 
-func GetEntityAllAsync(svr string, entity string) (results chan []byte, err error) {
-	url := svr + "/" + entity
-	resp, err := http.Get(url)
-	if err != nil {
-		logrus.Error(err)
-		resp.Body.Close()
-		return
-	}
-
-	results = make(chan []byte)
-	go closerToChan(resp.Body, results)
-	return
-
-}
-
-func GetEntityManyAsync(svr string, entity, field, id string) (results chan []byte, err error) {
-	url := svr + "/" + entity + "/" + field + "/" + id
+func GetEntityManyAsync(baseURL string, query query.Query) (results chan []byte, err error) {
+	url := query.ToURL(baseURL)
 	resp, err := http.Get(url)
 	if err != nil {
 		logrus.Error(err)

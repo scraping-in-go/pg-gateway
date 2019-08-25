@@ -13,6 +13,42 @@ type Query struct {
 	Limit       int
 }
 
+func (q *Query) ToURL(baseURL string) string {
+	url := baseURL + "/" + q.Entity
+	changed := 0
+	for _, sel := range q.Select {
+		changed++
+		if changed == 1 {
+			url += "?select="
+		} else {
+			url += ","
+		}
+		url += sel
+	}
+
+	for _, c := range q.Comparisons {
+		changed++
+		if changed == 1 {
+			url += "?"
+		} else {
+			url += "&"
+		}
+		url += c.ComparatorToURL()
+	}
+
+	if q.Limit != 0 {
+		changed++
+		if changed == 1 {
+			url += "?"
+		} else {
+			url += "&"
+		}
+		url += "limit=" + strconv.Itoa(q.Limit)
+	}
+	return url
+
+}
+
 func (q *Query) ToQuery() (queryString string, bindArr []interface{}) {
 	queryString = "SELECT "
 	if len(q.Select) == 0 {
@@ -68,6 +104,9 @@ type Comparison struct {
 	Value      string
 }
 
+func (c *Comparison) ComparatorToURL() string {
+	return c.Field + "=" + c.Comparator + "." + c.Value
+}
 func (c *Comparison) ComparatorToSQL() string {
 	if c.Comparator == "eq" {
 		return "="

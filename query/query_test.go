@@ -5,6 +5,134 @@ import (
 	"testing"
 )
 
+func TestQuery_ToURL(t *testing.T) {
+	query := Query{
+		Entity:      "users",
+		Comparisons: []Comparison{},
+	}
+	expected := "http://localhost:8080/users"
+	found := query.ToURL("http://localhost:8080")
+	if expected != found {
+		t.Error("unexpected url from quest")
+		t.Error(found)
+		t.Error(expected)
+		return
+	}
+}
+
+func TestQuery_ToURLComparison(t *testing.T) {
+	query := Query{
+		Entity: "users",
+		Comparisons: []Comparison{
+			{
+				Field:      "id",
+				Comparator: "eq",
+				Value:      "2",
+			},
+		},
+	}
+	expected := "http://localhost:8080/users?id=eq.2"
+	found := query.ToURL("http://localhost:8080")
+	if expected != found {
+		t.Error("unexpected url from quest")
+		t.Error(found)
+		t.Error(expected)
+		return
+	}
+}
+
+func TestQuery_ToURLComparisons(t *testing.T) {
+	query := Query{
+		Entity: "users",
+		Comparisons: []Comparison{
+			{
+				Field:      "id",
+				Comparator: "eq",
+				Value:      "2",
+			},
+			{
+				Field:      "age",
+				Comparator: "lt",
+				Value:      "10",
+			},
+		},
+	}
+	expected := "http://localhost:8080/users?id=eq.2&age=lt.10"
+	found := query.ToURL("http://localhost:8080")
+	if expected != found {
+		t.Error("unexpected url from quest")
+		t.Error(found)
+		t.Error(expected)
+		return
+	}
+}
+
+func TestQuery_ToURLSelect(t *testing.T) {
+	query := Query{
+		Entity: "users",
+		Select: []string{
+			"id",
+			"name",
+		},
+		Comparisons: []Comparison{},
+	}
+	expected := "http://localhost:8080/users?select=id,name"
+	found := query.ToURL("http://localhost:8080")
+	if expected != found {
+		t.Error("unexpected url from quest")
+		t.Error(found)
+		t.Error(expected)
+		return
+	}
+}
+
+func TestQuery_ToURLLimit(t *testing.T) {
+	query := Query{
+		Entity:      "users",
+		Comparisons: []Comparison{},
+		Limit:       10,
+	}
+	expected := "http://localhost:8080/users?limit=10"
+	found := query.ToURL("http://localhost:8080")
+	if expected != found {
+		t.Error("unexpected url from quest")
+		t.Error(found)
+		t.Error(expected)
+		return
+	}
+}
+
+func TestQuery_ToURAll(t *testing.T) {
+	query := Query{
+		Entity: "users",
+		Select: []string{
+			"id",
+			"name",
+		},
+		Comparisons: []Comparison{
+			{
+				Field:      "id",
+				Comparator: "eq",
+				Value:      "1",
+			},
+			{
+				Field:      "name",
+				Comparator: "gte",
+				Value:      "Justin",
+			},
+		},
+		Limit: 10,
+	}
+	expected := "http://localhost:8080/users?select=id,name&id=eq.1&name=gte.Justin&limit=10"
+	found := query.ToURL("http://localhost:8080")
+	if expected != found {
+		t.Error("unexpected url from quest")
+		t.Error(found)
+		t.Error(expected)
+		return
+	}
+}
+
 func TestQuery_ToQuery(t *testing.T) {
 	query := Query{
 		Entity:      "users",

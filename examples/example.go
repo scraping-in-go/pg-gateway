@@ -4,13 +4,15 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/just1689/pg-gateway/client"
+	"github.com/just1689/pg-gateway/query"
 )
 
 var svr = "http://localhost:8080"
 
 func main() {
-	testInsert()
-	testReadAsync()
+	//testInsert()
+	//testReadAsync()
+	testRead()
 }
 
 var userEntities = "users"
@@ -39,7 +41,11 @@ func testInsert() {
 }
 
 func testReadAsync() {
-	c, err := client.GetEntityAllAsync(svr, "users")
+	c, err := client.GetEntityManyAsync(svr, query.Query{
+		Entity:      userEntities,
+		Comparisons: []query.Comparison{},
+		Limit:       5,
+	})
 	if err != nil {
 		panic(err)
 	}
@@ -48,5 +54,18 @@ func testReadAsync() {
 		count++
 		fmt.Println(count, string(r))
 	}
+
+}
+
+func testRead() {
+	c, err := client.GetEntityMany(svr, query.Query{
+		Entity:      userEntities,
+		Comparisons: []query.Comparison{},
+		Limit:       5,
+	})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(c))
 
 }
