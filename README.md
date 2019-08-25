@@ -146,8 +146,7 @@ is the equivalent of `DELETE FROM entities WHERE id=12`
 
 ## Client
 
-See the /client directory for the client.
-Examples of usage can be found in /examples.
+See the /client directory for the client. Examples of usage can be found in /examples.
 
 
 
