@@ -58,6 +58,15 @@ is the equivalent of
 SELECT * FROM users
 ```
 
+### Get n rows for that table
+```shell script
+curl http://localhost:8080/users?limit=10
+```
+is the equivalent of  
+```sql
+SELECT * FROM users limit 10
+```
+
 
 
 ### Insert row into table
