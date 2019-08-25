@@ -50,7 +50,7 @@ func testReadAsync() {
 			query.Comparison{
 				Field:      "email",
 				Comparator: "gt",
-				Value:      "8",
+				Value:      "5",
 			},
 		},
 		Limit: 5000,
@@ -59,10 +59,10 @@ func testReadAsync() {
 		panic(err)
 	}
 	count := 0
-	for r := range c {
+	for _ = range c {
 		count++
-		fmt.Println(count, string(r))
 	}
+	fmt.Println("rows", count)
 
 }
 
