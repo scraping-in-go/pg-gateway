@@ -99,9 +99,10 @@ func generateSelect(q *Query) (queryString string) {
 }
 
 func generateWhere(q *Query, queryString string, bindArrIn []interface{}) (string, []interface{}) {
-	if len(q.Comparisons) != 0 {
-		queryString += " WHERE "
+	if len(q.Comparisons) == 0 {
+		return queryString, bindArrIn
 	}
+	queryString += " WHERE "
 	for id, row := range q.Comparisons {
 		if id > 0 {
 			queryString += " AND "
