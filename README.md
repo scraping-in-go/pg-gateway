@@ -4,7 +4,7 @@
 
 <img align="right" height="240" src="docs/pg2.png" />
 
-This project aims to make easy to interact with a PostgreSQL database over http inspired by <a href="https://github.com/PostgREST/postgrest">Postgrest</a>.
+This project aims to make easy to interact with a PostgreSQL database over http.
 
 
 ## Features
@@ -181,3 +181,7 @@ Memory usage after 1 million requests (concurrency of 100 connections).
 | Websocket support | Great for less connection overhead |
 | GRPC support | Investigation |
 
+## Acknowledgments
+
+This project was inspired by <a href="https://github.com/PostgREST/postgrest">PostgREST</a>. 
+While PostgREST is specifically for rest over http, this project aims to enable less connection overhead by websocket and perhaps GRPC support. 
