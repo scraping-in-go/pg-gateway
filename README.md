@@ -1,10 +1,10 @@
-# PG Gateway
+# PostgreSQL Gateway
 <a href="https://github.com/just1689/pg-gateway/releases"><img src="https://img.shields.io/badge/version-2.0-blue" /></a>&nbsp;<a href="https://goreportcard.com/report/github.com/just1689/pg-gateway"><img src="https://goreportcard.com/badge/github.com/just1689/pg-gateway"></a>&nbsp;<a href="https://codebeat.co/projects/github-com-just1689-pg-gateway-master"><img alt="codebeat badge" src="https://codebeat.co/badges/41278d9d-5877-4f6b-8638-9eec74b9aeba" /></a>&nbsp;<a href="https://codeclimate.com/github/just1689/pg-gateway/maintainability"><img src="https://api.codeclimate.com/v1/badges/28264ac4d5c087d43928/maintainability" /></a>&nbsp;[![CircleCI](https://circleci.com/gh/just1689/pg-gateway.svg?style=svg)](https://circleci.com/gh/just1689/pg-gateway)
 <br />
 
 <img align="right" height="240" src="docs/pg2.png" />
 
-This project aims to make easy to interact with a Postgresql database over http inspired by <a href="https://github.com/PostgREST/postgrest">Postgrest</a>.
+This project aims to make easy to interact with a PostgreSQL database over http inspired by <a href="https://github.com/PostgREST/postgrest">Postgrest</a>.
 
 
 ## Features
@@ -23,7 +23,7 @@ Other features
 - For multi-row returns, the application writes rows back to the client as each row is read.
 - Low memory requirement (around 8 MB of RAM used for entire docker container under high load. Allocate 16 MB to be generous).
 - Database connection cache. Each request doesn't have to wait for a new connection to be made.
-- Transfer binary-to-binary. Reading from Postgresql is done in binary and written back to the client without conversion etc.
+- Transfer binary-to-binary. Reading from PostgreSQL is done in binary and written back to the client without conversion etc.
 - Set the database connection details using environment variables. Great for Cloud Native environments. 
 - Dockefile with light, low attack-surface final image.
 - Listen address can be set by an environment variable.
@@ -34,12 +34,12 @@ Other features
 | Env | Description |
 |---|---|
 | listenAddr | Address to listen on for http request (for ex: :8080) |
-| pghost | Postgresql hostname |
-| pguser | Postgresql username |
-| pgpassword | Postgresql password |
-| pgdb | Postgresql database |
-| pgport | Postgresql port |
-| poolSize | Number of postgresql connections to keep open |
+| pghost | PostgreSQL hostname |
+| pguser | PostgreSQL username |
+| pgpassword | PostgreSQL password |
+| pgdb | PostgreSQL database |
+| pgport | PostgreSQL port |
+| poolSize | Number of PostgreSQL connections to keep open |
 
 - Build from source or
 - Run the Docker container `docker pull just1689/pg-gateway:latest`
