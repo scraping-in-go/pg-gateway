@@ -144,6 +144,16 @@ curl -X DELETE http://localhost:8080/users/id/12
 is the equivalent of `DELETE FROM entities WHERE id=12`
 
 
+### Understanding the response
+An HTTP 200 OK is returned if everything went as expected.
+ 
+Bad request is used if the request cannot be processed.
+
+Internal Server Error is used for unexpected errors on the server-side.
+
+Results for GET operations will always be contained in a JSON array: `[]` (even if expect to return one row). 
+
+
 ## Client
 
 See the /client directory for the client. Examples of usage can be found in /examples.
