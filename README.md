@@ -176,6 +176,8 @@ Memory usage after 1 million requests (concurrency of 100 connections).
 | FastHTTP | Fewer allocs for each request. |
 | Bulk inserts | Better insert performance. |
 | Docker Service | Simple script to spin up db and service. |
-| Pagination | Restricting result sets. |
 | Benchmark | Read, write, allocs, memory performance. |
+| Viper lib | 12 factor app style config |
+| Websocket support | Great for less connection overhead |
+| GRPC support | Investigation |
 
