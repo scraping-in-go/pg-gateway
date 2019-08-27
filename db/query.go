@@ -1,33 +1,28 @@
 package db
 
 import (
-	"fmt"
 	"github.com/jackc/pgx"
+	"github.com/just1689/pg-gateway/query"
 	"github.com/sirupsen/logrus"
 )
 
-func GetEntityAll(entity string) (result chan []byte, err error) {
+func GetByQuery(query query.Query) (result chan []byte, err error) {
 	result = make(chan []byte)
 	conn := NextPoolCon()
-	sql := fmt.Sprintf("select row_to_json(%s)as row from %s", entity, entity)
-	rows, err := conn.Query(sql)
-	if err != nil {
-		logrus.Errorln(err)
-		conn.Close()
-		return
+	sql, bind := query.ToSelectQuery()
+	var rows *pgx.Rows
+	if len(bind) == 0 {
+		rows, err = conn.Query(sql)
+	} else {
+		rows, err = conn.Query(sql, bind...)
 	}
-	go rowsToChan(rows, result, func() { conn.Close() })
-	return
-}
-
-func GetEntityMany(entity, field, id string) (result chan []byte, err error) {
-	result = make(chan []byte)
-	conn := NextPoolCon()
-	sql := fmt.Sprintf("select row_to_json(%s)as row from %s where %s=$1", entity, entity, field)
-	rows, err := conn.Query(sql, id)
 	if err != nil {
 		logrus.Errorln(err)
 		logrus.Errorln(sql)
+		logrus.Errorln(len(bind))
+		for _, bs := range bind {
+			logrus.Errorln(bs)
+		}
 		conn.Close()
 		return
 	}
@@ -47,19 +42,4 @@ func rowsToChan(rows *pgx.Rows, result chan []byte, closer func()) {
 	close(result)
 	rows.Close()
 	closer()
-}
-
-func GetEntityByID(entity, id string) (row []byte, err error) {
-	conn := NextPoolCon()
-	defer conn.Close()
-	sql := fmt.Sprintf("select row_to_json(%s)as row from %s where id=$1", entity, entity)
-	if err = conn.QueryRow(sql, id).Scan(&row); err != nil {
-		if err.Error() == pgx.ErrNoRows.Error() {
-			return
-		}
-		logrus.Errorln(err)
-		return
-	}
-	return
-
 }
