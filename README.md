@@ -169,6 +169,7 @@ Memory usage after 1 million requests (concurrency of 100 connections).
 ### Roadmap
 | To do | Notes |
 |---|---|
+| Distinct | Allow distinct select for column. |
 | Insert | Revisit implementation. |
 | Update | Revisit implementation. |
 | Delete | Revisit implementation. |
